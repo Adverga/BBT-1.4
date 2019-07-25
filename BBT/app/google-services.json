@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "258136025560",
+    "firebase_url": "https://bbtfirebaseproject-611f9.firebaseio.com",
+    "project_id": "bbtfirebaseproject-611f9",
+    "storage_bucket": "bbtfirebaseproject-611f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258136025560:android:a991db4d432ed260",
+        "android_client_info": {
+          "package_name": "com.example.bbt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258136025560-7u4ipqs8m7eoq36brksd96n6g4d9pog9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bbt",
+            "certificate_hash": "65ed666360a9c11dc08b51efcc3233900d6f1c6f"
+          }
+        },
+        {
+          "client_id": "258136025560-k7mf04kljv9sbm34emtc5uk4m44362hk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZXgFdlgAyEvwYG32X9ajsNSM0s3TnRDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258136025560-k7mf04kljv9sbm34emtc5uk4m44362hk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
