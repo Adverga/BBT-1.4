@@ -3,7 +3,7 @@ package com.example.bbt;
 public class User {
 
     private String id, username, email;
-    private Boolean Moderator;
+    private Boolean Moderator = false;
 
     public User(String id, String username, String email) {
         this.id = id;

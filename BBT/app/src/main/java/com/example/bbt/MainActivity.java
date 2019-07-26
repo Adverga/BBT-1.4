@@ -3,6 +3,7 @@ package com.example.bbt;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,6 +40,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
             finish();
         }*/
+        /*AuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    toastMessage("Successfully signed in with: " + user.getEmail());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    toastMessage("Successfully signed out.");
+                }
+                // ...
+            }
+        };*/
 
         inuser = findViewById(R.id.inuser);
         inpass = findViewById(R.id.inpass);
@@ -84,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (task.isSuccessful()){
                         progress.dismiss();
                         Toast.makeText(getApplicationContext(), "sign in successfull", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, userlist.class);
+                        Intent intent = new Intent(MainActivity.this, Decide.class);
                         startActivity(intent);
                     } else{
                         String err = task.getException().getMessage();
@@ -97,6 +115,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
+    }
+
+    /*@Override
+    public void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(AuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (AuthListener != null) {
+            firebaseAuth.removeAuthStateListener(AuthListener);
+        }
+    }*/
+
+
+    /**
+     * customizable toast
+     * @param message
+     */
+    private void toastMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
 }

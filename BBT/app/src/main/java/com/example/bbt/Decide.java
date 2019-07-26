@@ -3,6 +3,7 @@ package com.example.bbt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,10 +36,10 @@ public class Decide extends AppCompatActivity {
         setContentView(R.layout.activity_decide);
 
         mAuth = FirebaseAuth.getInstance();
-        myRef = mFirebaseDatabase.getReference();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         userID = user.getUid();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        myRef = mFirebaseDatabase.getReference("Admin");
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -74,17 +75,28 @@ public class Decide extends AppCompatActivity {
     }
 
     private void showData(DataSnapshot dataSnapshot) {
+        User uInfo = new User();
+
         for(DataSnapshot ds : dataSnapshot.getChildren()){
-            User uInfo = new User();
+            //User uInfo = new User();
             uInfo.setUsername(ds.child(userID).getValue(User.class).getUsername()); //set the name
             uInfo.setEmail(ds.child(userID).getValue(User.class).getEmail()); //set the email
             uInfo.setModerator(ds.child(userID).getValue(User.class).getModerator()); //set the phone_num
 
             //display all the information
-            Log.d(TAG, "showData: name: " + uInfo.getUsername());
+            Log.d(TAG, "showData: username: " + uInfo.getUsername());
             Log.d(TAG, "showData: email: " + uInfo.getEmail());
-            Log.d(TAG, "showData: phone_num: " + uInfo.getModerator());
+            Log.d(TAG, "showData: status: " + uInfo.getModerator());
 
+            Log.d(TAG, ds.getKey() + ": " + ds.getValue());
+        }
+
+        if(uInfo.getModerator() == true){
+            Intent intent = new Intent(Decide.this, adminlist.class);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(Decide.this, userlist.class);
+            startActivity(intent);
         }
     }
 
