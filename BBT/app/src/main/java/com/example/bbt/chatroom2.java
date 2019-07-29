@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class chatroom extends AppCompatActivity {
+public class chatroom2 extends AppCompatActivity {
 
     private Button btn_send_msg;
     private EditText input_msg;
@@ -54,7 +54,6 @@ public class chatroom extends AppCompatActivity {
                 map2.put("msg",input_msg.getText().toString());
 
                 message_root.updateChildren(map2);
-                input_msg.setText(null);
 
             }
         });

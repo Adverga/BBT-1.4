@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
-        android:text="BBPP BERBAGI TEKNIK"
+        android:text="TEMAN TANI PINTAR"
         android:textColor="#FFFFFF"
         android:textAlignment="center"
         android:textSize="20dp" />
@@ -37,7 +37,7 @@
         android:textColor="#FFFFFF"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="Username :" />
+        android:text="Email :" />
 
     <EditText
         android:id="@+id/inuser"
