@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnregister:
                 Intent intent = new Intent(MainActivity.this, Register.class);
                 startActivity(intent);
+                finish();
                 break;
         }
     }
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(getApplicationContext(), "sign in successfull", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, Decide.class);
                         startActivity(intent);
+                        finish();
                     } else{
                         String err = task.getException().getMessage();
                         if (err.contains("password")){
