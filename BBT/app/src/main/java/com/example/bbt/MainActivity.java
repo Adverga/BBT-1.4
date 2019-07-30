@@ -35,11 +35,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        /*if (firebaseAuth.getCurrentUser()!=null){
-            Intent intent = new Intent(this, MainActivity.class);
+        if (firebaseAuth.getCurrentUser()!=null){
+            Intent intent = new Intent(this, Decide.class);
             startActivity(intent);
             finish();
-        }*/
+        }
         /*AuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
