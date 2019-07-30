@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class userlist extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnbudidaya, btnpenghas, btnproteksi;
+    private Button btnbudidaya, btnpenghas, btnproteksi, btnchat;
     private String name;
 
     @Override
@@ -21,22 +21,17 @@ public class userlist extends AppCompatActivity implements View.OnClickListener{
         btnbudidaya = findViewById(R.id.btnbudidaya);
         btnpenghas = findViewById(R.id.btnpenghas);
         btnproteksi = findViewById(R.id.btnproteksi);
+        btnchat = findViewById(R.id.btnchat);
 
         btnbudidaya.setOnClickListener(this);
         btnpenghas.setOnClickListener(this);
         btnproteksi.setOnClickListener(this);
-
+        btnchat.setOnClickListener(this);
     }
 
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btnbudidaya:
-                login();
-                break;
-            case R.id.btnpenghas:
-                login();
-                break;
-            case R.id.btnproteksi:
+            case R.id.btnchat:
                 login();
                 break;
         }

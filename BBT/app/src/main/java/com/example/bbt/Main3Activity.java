@@ -28,7 +28,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class Main2Activity extends AppCompatActivity {
+public class Main3Activity extends AppCompatActivity {
 
     private Button add_room;
     private EditText room_name;
@@ -43,7 +43,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main3);
 
         name = getIntent().getExtras().get("user_name").toString();
 
@@ -55,7 +55,17 @@ public class Main2Activity extends AppCompatActivity {
         listView.setAdapter(arrayAdapter);
 
         //request_user_name();
+        add_room.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                Map<String,Object> map = new HashMap<String,Object>();
+                map.put(room_name.getText().toString(),"");
+                root.updateChildren(map);
+                room_name.setText(null);
+
+            }
+        });
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
