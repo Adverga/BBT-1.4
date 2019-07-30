@@ -93,7 +93,8 @@ public class Decide extends AppCompatActivity {
 
         if(uInfo.getModerator() == true){
             Intent intent = new Intent(Decide.this, adminlist.class);
-            //intent.putExtra("user_name", uInfo.getUsername());
+            intent.putExtra("user_name", uInfo.getUsername());
+            intent.putExtra("mod",uInfo.getModerator());
             startActivity(intent);
         }else{
             Intent intent = new Intent(Decide.this, userlist.class);

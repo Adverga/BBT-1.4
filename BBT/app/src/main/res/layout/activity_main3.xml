@@ -7,10 +7,12 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
+    android:background="@color/colorPrimary"
     tools:context="com.example.bbt.Main3Activity">
 
     <ListView
         android:id="@+id/listView"
+        android:background="#F2F2F2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

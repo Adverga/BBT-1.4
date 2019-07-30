@@ -62,6 +62,7 @@ public class Main3Activity extends AppCompatActivity {
                 Map<String,Object> map = new HashMap<String,Object>();
                 map.put(room_name.getText().toString(),"");
                 root.updateChildren(map);
+                room_name.setText(null);
 
             }
         });
