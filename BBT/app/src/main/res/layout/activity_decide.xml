@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
-        android:text="Decide"
+        android:text="Loading..."
         android:textColor="#FFFFFF"
         android:textAlignment="center"
         android:textSize="20dp" />
