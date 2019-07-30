@@ -41,7 +41,7 @@
         android:layout_marginRight="20dp"
         android:hint="BUDIDAYA PERTANIAN"
         android:textColorHint="#000000"
-        android:textSize="23dp" />
+        android:textSize="20dp" />
     <Button
         android:id="@+id/btnpenghas"
         android:layout_width="match_parent"
@@ -51,9 +51,10 @@
         android:layout_marginTop="10dp"
         android:hint="PENGOLAHAN HASIL"
         android:textColorHint="#000000"
-        android:textSize="23dp"
+        android:textSize="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"/>
+
     <Button
         android:id="@+id/btnproteksi"
         android:layout_width="match_parent"
@@ -63,18 +64,32 @@
         android:layout_marginTop="10dp"
         android:hint="PROTEKSI"
         android:textColorHint="#000000"
-        android:textSize="23dp"
+        android:textSize="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"/>
 
     <Button
         android:id="@+id/btnchat"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="left"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/ic_forum_black_24dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/ic_forum_black_24dp"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/btnout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:layout_weight=""
+        android:background="@drawable/logout" />
+
 
 
 </LinearLayout>
