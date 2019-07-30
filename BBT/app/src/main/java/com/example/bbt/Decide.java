@@ -96,10 +96,12 @@ public class Decide extends AppCompatActivity {
             intent.putExtra("user_name", uInfo.getUsername());
             intent.putExtra("mod",uInfo.getModerator());
             startActivity(intent);
+            finish();
         }else{
             Intent intent = new Intent(Decide.this, userlist.class);
             intent.putExtra("user_name", uInfo.getUsername());
             startActivity(intent);
+            finish();
         }
     }
 
