@@ -69,6 +69,19 @@
         android:layout_marginRight="20dp"/>
 
     <Button
+        android:id="@+id/btnlogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inpass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:hint="SIGN OUT"
+        android:textColorHint="#000000"
+        android:textSize="23dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <Button
         android:id="@+id/btnchat"
         android:layout_width="40dp"
         android:layout_height="40dp"
