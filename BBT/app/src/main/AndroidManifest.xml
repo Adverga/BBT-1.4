@@ -11,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".konten_alatbahan"></activity>
+        <activity android:name=".konten_tagamcar" />
+        <activity android:name=".konten_cara" />
         <activity android:name=".Main3Activity" />
         <activity android:name=".chatroom" />
         <activity android:name=".Main2Activity" />
