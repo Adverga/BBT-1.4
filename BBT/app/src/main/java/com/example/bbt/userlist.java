@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 public class userlist extends AppCompatActivity implements View.OnClickListener{
 
     private Button btnbudidaya, btnpenghas, btnproteksi;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userlist);
+        name = getIntent().getExtras().get("user_name").toString();
 
         btnbudidaya = findViewById(R.id.btnbudidaya);
         btnpenghas = findViewById(R.id.btnpenghas);
@@ -42,6 +44,7 @@ public class userlist extends AppCompatActivity implements View.OnClickListener{
 
     private void login(){
         Intent intent = new Intent(userlist.this, Main2Activity.class);
+        intent.putExtra("user_name", name);
         startActivity(intent);
     }
 
