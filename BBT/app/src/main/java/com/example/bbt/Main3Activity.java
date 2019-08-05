@@ -22,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.example.bbt.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -77,6 +79,13 @@ public class Main3Activity extends AppCompatActivity {
                 }
                 list_of_rooms.clear();
                 list_of_rooms.addAll(set);
+
+                Collections.sort(list_of_rooms, new Comparator<String>() {
+                    @Override
+                    public int compare(String s, String s2) {
+                        return s.compareTo(s2);
+                    }
+                });
 
                 arrayAdapter.notifyDataSetChanged();
             }
