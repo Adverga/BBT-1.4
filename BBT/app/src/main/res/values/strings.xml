@@ -3,5 +3,7 @@
     <string name="Register"><u>Register</u></string>
     <string name="Password">Password</string>
     <string name="LogoDescription">Ini adalah Logo BBPP</string>
+    <string name="username">Username</string>
     <string name="email">Email</string>
+    <string name="confirmPassword">Confirm Password</string>
 </resources>
