@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class userlist extends AppCompatActivity implements View.OnClickListener{
 
     private Button btnbudidaya, btnpenghas, btnproteksi;//, btnchat, btnout;
-    private String name;
+    private String name, mod;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -33,6 +33,7 @@ public class userlist extends AppCompatActivity implements View.OnClickListener{
         firebaseAuth = FirebaseAuth.getInstance();
 
         name = getIntent().getExtras().get("user_name").toString();
+        mod = getIntent().getExtras().get("mod").toString();
 
         btnbudidaya = findViewById(R.id.btnbudidaya);
         btnpenghas = findViewById(R.id.btnpenghas);
@@ -70,6 +71,7 @@ public class userlist extends AppCompatActivity implements View.OnClickListener{
     private void login(){
         Intent intent = new Intent(userlist.this, Main2Activity.class);
         intent.putExtra("user_name", name);
+        intent.putExtra("mod", mod);
         startActivity(intent);
     }
 

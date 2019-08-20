@@ -2,16 +2,17 @@ package com.example.bbt;
 
 public class Messages {
 
-    private String NameID, msg, name;
+    private String NameID, msg, name, mod;
 
     public Messages(){
 
     }
 
-    public Messages(String msg, String NameID, String name) {
+    public Messages(String msg, String NameID, String name, String mod) {
         this.NameID = NameID;
         this.msg = msg;
         this.name = name;
+        this.mod = mod;
     }
 
     public String getId() {
@@ -36,5 +37,13 @@ public class Messages {
 
     public void setNama(String nama) {
         this.name = nama;
+    }
+
+    public String getMod() {
+        return mod;
+    }
+
+    public void setMod(String mod) {
+        this.mod = mod;
     }
 }

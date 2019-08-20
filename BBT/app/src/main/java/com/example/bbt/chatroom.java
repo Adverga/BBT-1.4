@@ -32,7 +32,7 @@ public class chatroom extends AppCompatActivity {
     private Button btn_send_msg;
     private EditText input_msg;
     //private TextView chat_conversation;
-    private String user_name ,room_name, messageSenderID, dummy;
+    private String user_name ,room_name, messageSenderID, dummy, mod;
     private DatabaseReference root, realRoot;
     private String temp_key;
     private FirebaseAuth mAuth;
@@ -51,6 +51,7 @@ public class chatroom extends AppCompatActivity {
         //chat_conversation = (TextView)findViewById(R.id.textView);
         user_name = getIntent().getExtras().get("user_name").toString();
         room_name = getIntent().getExtras().get("room_name").toString();
+        mod = getIntent().getExtras().get("mod").toString();
         setTitle("Room - "+room_name);
 
         mAuth = FirebaseAuth.getInstance();
@@ -83,6 +84,7 @@ public class chatroom extends AppCompatActivity {
                     map2.put("name",user_name);
                     map2.put("msg",input_msg.getText().toString());
                     map2.put("NameID",messageSenderID);
+                    map2.put("mod",mod);
 
                     message_root.updateChildren(map2);
                     input_msg.setText(null);
@@ -162,6 +164,7 @@ public class chatroom extends AppCompatActivity {
         while (i.hasNext())
         {
             messages.setId((String) ((DataSnapshot)i.next()).getValue());
+            messages.setMod((String) ((DataSnapshot)i.next()).getValue());
             messages.setMessage((String) ((DataSnapshot)i.next()).getValue());
             messages.setNama((String) ((DataSnapshot)i.next()).getValue());
 

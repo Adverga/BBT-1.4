@@ -35,7 +35,7 @@ public class Main2Activity extends AppCompatActivity {
     private Button add_room;
     private EditText room_name;
     private ListView listView;
-    private String name;
+    private String name, mod;
     private DatabaseReference root1 = FirebaseDatabase.getInstance().getReference().getRoot();
     private DatabaseReference root = root1.child("ChatRoom");
 
@@ -48,6 +48,7 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         name = getIntent().getExtras().get("user_name").toString();
+        mod = getIntent().getExtras().get("mod").toString();
 
         add_room = (Button)findViewById(R.id.btnAdd_room);
         room_name = (EditText)findViewById(R.id.etNeme_room);
@@ -92,6 +93,7 @@ public class Main2Activity extends AppCompatActivity {
                 Intent I = new Intent(getApplicationContext(),chatroom.class);
                 I.putExtra("room_name",((TextView)view).getText().toString());
                 I.putExtra("user_name",name);
+                I.putExtra("mod",mod);
                 startActivity(I);
             }
         });

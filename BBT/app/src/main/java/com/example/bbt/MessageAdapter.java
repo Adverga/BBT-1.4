@@ -58,6 +58,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         String fromUserID = messages.getId();
         String fromUserName = messages.getNama();
+        String fromMod = messages.getMod();
 
         Log.d(TAG, fromUserID + " ##### " + messageSenderID);
 
@@ -67,7 +68,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         if(fromUserID.equals(messageSenderID)){
             holder.senderMessageText.setVisibility(View.VISIBLE);
 
-            if(fromUserID.equals("zSIKceNe90e4E6ut3PBd3u48ehU2")){
+            if(fromMod.equals("true")){
                 holder.senderMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
             }
             else{
@@ -81,7 +82,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             holder.messageProfileName.setVisibility(View.VISIBLE);
             holder.receiverMessageText.setVisibility(View.VISIBLE);
 
-            if(fromUserID.equals("zSIKceNe90e4E6ut3PBd3u48ehU2")){
+            if(fromMod.equals("true")){
                 holder.receiverMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
             }
             else{
