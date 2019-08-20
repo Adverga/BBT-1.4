@@ -105,6 +105,7 @@ public class chatroom extends AppCompatActivity {
 
                 Log.d(TAG, dataSnapshot.getKey() + " ##### " + dataSnapshot.getValue());
                 append_chat_conversatin_recycler(dataSnapshot);
+                userMessagesList.smoothScrollToPosition(userMessagesList.getAdapter().getItemCount());
             }
 
             @Override
@@ -117,6 +118,7 @@ public class chatroom extends AppCompatActivity {
 
                 Log.d(TAG, dataSnapshot.getKey() + " ##### " + dataSnapshot.getValue());
                 append_chat_conversatin_recycler(dataSnapshot);
+                userMessagesList.smoothScrollToPosition(userMessagesList.getAdapter().getItemCount());
             }
 
             @Override
