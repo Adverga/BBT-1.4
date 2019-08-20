@@ -2,7 +2,6 @@ package com.example.bbt;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -67,7 +66,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         if(fromUserID.equals(messageSenderID)){
             holder.senderMessageText.setVisibility(View.VISIBLE);
-            holder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
+
+            if(fromUserID.equals("zSIKceNe90e4E6ut3PBd3u48ehU2")){
+                holder.senderMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
+            }
+            else{
+                holder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
+            }
+
             holder.senderMessageText.setText(messages.getMessage());
         }
         else{
@@ -75,7 +81,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             holder.messageProfileName.setVisibility(View.VISIBLE);
             holder.receiverMessageText.setVisibility(View.VISIBLE);
 
-            holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
+            if(fromUserID.equals("zSIKceNe90e4E6ut3PBd3u48ehU2")){
+                holder.receiverMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
+            }
+            else{
+                holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
+            }
+
             holder.receiverMessageText.setText(messages.getMessage());
             holder.messageProfileName.setText(messages.getNama());
         }
