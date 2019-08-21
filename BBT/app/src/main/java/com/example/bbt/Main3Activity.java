@@ -22,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.example.bbt.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,7 +35,7 @@ public class Main3Activity extends AppCompatActivity {
     private Button add_room;
     private EditText room_name;
     private ListView listView;
-    private String name;
+    private String name, mod;
     private DatabaseReference root1 = FirebaseDatabase.getInstance().getReference().getRoot();
     private DatabaseReference root = root1.child("ChatRoom");
 
@@ -46,6 +48,7 @@ public class Main3Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
 
         name = getIntent().getExtras().get("user_name").toString();
+        mod = getIntent().getExtras().get("mod").toString();
 
         add_room = (Button)findViewById(R.id.btnAdd_room);
         room_name = (EditText)findViewById(R.id.etNeme_room);
@@ -78,6 +81,13 @@ public class Main3Activity extends AppCompatActivity {
                 list_of_rooms.clear();
                 list_of_rooms.addAll(set);
 
+                Collections.sort(list_of_rooms, new Comparator<String>() {
+                    @Override
+                    public int compare(String s, String s2) {
+                        return s.compareTo(s2);
+                    }
+                });
+
                 arrayAdapter.notifyDataSetChanged();
             }
 
@@ -94,6 +104,7 @@ public class Main3Activity extends AppCompatActivity {
                 Intent I = new Intent(getApplicationContext(),chatroom.class);
                 I.putExtra("room_name",((TextView)view).getText().toString());
                 I.putExtra("user_name",name);
+                I.putExtra("mod", mod);
                 startActivity(I);
             }
         });

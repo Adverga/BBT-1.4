@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
     private EditText inuser, inemail, inpass, inconfirmpass;
-    private Button btnregister;
+    private RelativeLayout btnregister;
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -55,15 +56,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     private void register(){
         if (inputValidated()){
-            final String username = inuser.getText().toString(),
+            final String username = inuser.getText().toString()+"@gmail.com",
                     password = inpass.getText().toString(),
-                    email = inemail.getText().toString();
+                    email = inemail.getText().toString(),
+                    trueUsername = inuser.getText().toString();
 
-            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        User user = new User(firebaseAuth.getCurrentUser().getUid(), username, email);
+                        User user = new User(firebaseAuth.getCurrentUser().getUid(), trueUsername, email);
                         databaseReference.child("Admin").child("User").child(firebaseAuth.getCurrentUser().getUid()).setValue(user);
                         Toast.makeText(Register.this,"User Created", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Register.this, MainActivity.class);

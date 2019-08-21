@@ -7,10 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,7 +26,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     private EditText inuser, inpass;
-    private Button btnlgn, btnregister;
+    private TextView textView3;
+    //private Button btnlgn;//, btnregister;
+    private RelativeLayout btnlgn;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener AuthListener;
@@ -61,12 +66,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         inuser = findViewById(R.id.inuser);
         inpass = findViewById(R.id.inpass);
         btnlgn = findViewById(R.id.btnlgn);
-        btnregister = findViewById(R.id.btnregister);
+        //btnregister = findViewById(R.id.btnregister);
+
+        textView3 = findViewById(R.id.textView3);
+        textView3.setText(R.string.Register);
+
         progress = new ProgressDialog(this);
         progress.setMessage("Logging in, please wait");
 
         btnlgn.setOnClickListener(this);
-        btnregister.setOnClickListener(this);
+        //btnregister.setOnClickListener(this);
+        textView3.setOnClickListener(this);
     }
 
     public void onClick(View v) {
@@ -74,10 +84,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnlgn:
                 login();
                 break;
-            case R.id.btnregister:
+            /*case R.id.btnregister:
                 Intent intent = new Intent(MainActivity.this, Register.class);
                 startActivity(intent);
-                finish();
+                break;*/
+            case R.id.textView3:
+                Intent intent1 = new Intent(MainActivity.this, Register.class);
+                startActivity(intent1);
                 break;
         }
     }
@@ -96,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void login(){
         if (inputValidated()){
-            String username = this.inuser.getText().toString();
+            String username = this.inuser.getText().toString()+"@gmail.com";
             String password = this.inpass.getText().toString();
             firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
