@@ -66,15 +66,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         holder.messageProfileName.setVisibility(View.INVISIBLE);
 
         if(fromUserID.equals(messageSenderID)){
-            holder.senderMessageText.setVisibility(View.VISIBLE);
 
-            if(fromMod.equals("true")){
+            /*if(fromMod.equals("true")){
                 holder.senderMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
             }
             else{
                 holder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
-            }
+            }*/
 
+            holder.senderMessageText.setVisibility(View.VISIBLE);
+            holder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
             holder.senderMessageText.setText(messages.getMessage());
         }
         else{
@@ -83,12 +84,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             holder.receiverMessageText.setVisibility(View.VISIBLE);
 
             if(fromMod.equals("true")){
-                holder.receiverMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
+                //holder.receiverMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
+                holder.messageProfileName.setBackgroundResource(R.drawable.messages_layout_admin);
             }
             else{
-                holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
+                //holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
+                holder.messageProfileName.setBackgroundResource(R.drawable.messages_layout_user);
             }
 
+            holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
             holder.receiverMessageText.setText(messages.getMessage());
             holder.messageProfileName.setText(messages.getNama());
         }
