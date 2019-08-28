@@ -4,6 +4,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,18 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> implements Filterable {
 
     private static final String TAG = "MessageAdapter";
 
     private List<Messages> userMessagesList;
+    private List<Messages> userMessagesListFull;
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
 
-    public MessageAdapter(List<Messages> userMessagesList){
+    public MessageAdapter(List<Messages> userMessagesList, List<Messages> userMessagesListFull){
         this.userMessagesList = userMessagesList;
+        this.userMessagesListFull = userMessagesListFull;
     }
 
     public class MessageViewHolder extends RecyclerView.ViewHolder{
@@ -102,5 +107,45 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public int getItemCount() {
         return userMessagesList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return messageFilter;
+    }
+
+    private Filter messageFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<Messages> filteredList = new ArrayList<>();
+
+            if(charSequence == null || charSequence.length() == 0){
+                filteredList.addAll(userMessagesListFull);
+                Log.d(TAG, userMessagesListFull.toString()+" ***** " + userMessagesList.toString());
+            }
+            else{
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+
+                for(Messages item : userMessagesListFull){
+                    if(item.getMessage().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                        Log.d(TAG, userMessagesListFull.toString()+" ***** " + userMessagesList.toString());
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            userMessagesList.clear();
+            userMessagesList.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
 
 }

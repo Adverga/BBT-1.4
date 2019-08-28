@@ -2,6 +2,7 @@ package com.example.bbt;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,6 +45,8 @@ public class chatroom extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private final List<Messages> messagesList = new ArrayList<>();
+    private final List<Messages> messagesListFull = new ArrayList<>();
+
     private LinearLayoutManager linearLayoutManager;
     private MessageAdapter messageAdapter;
     private RecyclerView userMessagesList;
@@ -70,11 +73,11 @@ public class chatroom extends AppCompatActivity {
         root = FirebaseDatabase.getInstance().getReference().child(room_name);
         realRoot = FirebaseDatabase.getInstance().getReference(room_name);
 
-        messageAdapter = new MessageAdapter(messagesList);
+        /*messageAdapter = new MessageAdapter(messagesList);
         userMessagesList = (RecyclerView) findViewById(R.id.private_messages_list_of_users);
         linearLayoutManager = new LinearLayoutManager(this);
         userMessagesList.setLayoutManager(linearLayoutManager);
-        userMessagesList.setAdapter(messageAdapter);
+        userMessagesList.setAdapter(messageAdapter);*/
 
         btn_send_msg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,13 +150,18 @@ public class chatroom extends AppCompatActivity {
             }
         });
 
-        messageAdapter = new MessageAdapter(messagesList);
+        messageAdapter = new MessageAdapter(messagesList, messagesListFull);
         userMessagesList = (RecyclerView) findViewById(R.id.private_messages_list_of_users);
         linearLayoutManager = new LinearLayoutManager(this);
         userMessagesList.setLayoutManager(linearLayoutManager);
         userMessagesList.setAdapter(messageAdapter);
 
     }
+
+    private void setUpRecyclerView(){
+
+    }
+
     private String chat_msg, chat_user_name;
 
     private void append_chat_conversatin(DataSnapshot dataSnapshot) {
@@ -183,6 +191,7 @@ public class chatroom extends AppCompatActivity {
             Log.d(TAG, "Iki lho: "+messages.getId());
 
             messagesList.add(messages);
+            messagesListFull.add(messages);
             messageAdapter.notifyDataSetChanged();
 
             //chat_conversation.append(chat_user_name + " : "+chat_msg +"\n");
@@ -194,7 +203,24 @@ public class chatroom extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.more_menu, menu);
+        inflater.inflate(R.menu.search_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                messageAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
         return true;
     }
 

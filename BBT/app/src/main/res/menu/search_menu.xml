@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_search"
+        android:icon="@drawable/ic_search"
+        android:title="Search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+
+    <item android:id="@+id/bantuan"
+        android:title="Bantuan"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/tentangKami"
+        android:title="Tentang Kami"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/signout"
+        android:title="Sign Out!"
+        app:showAsAction="never"/>
+
+</menu>
