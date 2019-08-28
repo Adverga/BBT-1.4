@@ -6,33 +6,36 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/kontencardview"
+        android:id="@+id/kCardView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:elevation="10dp"
-        app:cardBackgroundColor="#66CDAA"
-        app:cardCornerRadius="10dp">
-        <LinearLayout
+        android:layout_height="256dp"
+        android:clickable="true"
+        android:elevation="2dp"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardCornerRadius="@dimen/cardview_default_radius">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/thumbnail"
-                android:layout_width="220dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_horizontal"
-                />
+            android:layout_height="match_parent">
             <TextView
-                android:id="@+id/txt_title"
-                android:layout_width="wrap_content"
+                android:id="@+id/kText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:autoSizeMaxTextSize="35sp"
+                android:autoSizeMinTextSize="25sp"
+                android:background="@color/cardview_light_background"
+                android:backgroundTint="@color/cardview_light_background"
+                android:backgroundTintMode="src_atop"
+                android:elevation="@dimen/cardview_default_elevation"
+                android:gravity="center"
+                android:padding="2dp" />
+            <ImageView
+                android:id="@+id/kImage"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:text="Judul Yang Bagus Disini"/>
-        </LinearLayout>
+                android:scaleType="fitXY"
+                android:src="@color/colorAccent"/>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

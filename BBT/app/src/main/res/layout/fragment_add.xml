@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.AddFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/idTipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipe :"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_p"
+            android:elevation="5dp"
+            android:padding="2dp"
+            android:text="Upload"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txtJudul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Judul :"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnUpload" />
+        <EditText
+            android:id="@+id/editJudul"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_p"
+            android:inputType="text"
+            android:paddingLeft="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtJudul"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtJudul"
+            app:layout_constraintTop_toTopOf="@+id/txtJudul" />
+        <TextView
+            android:id="@+id/txtAlat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Alat :"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editJudul" />
+
+        <EditText
+            android:id="@+id/editAlat"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_p"
+            android:inputType="text"
+            android:paddingLeft="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtAlat"
+            app:layout_constraintEnd_toStartOf="@+id/addAlat"
+            app:layout_constraintStart_toEndOf="@+id/txtAlat"
+            app:layout_constraintTop_toTopOf="@+id/txtAlat" />
+
+        <TextView
+            android:id="@+id/addAlat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_p"
+            android:paddingHorizontal="13dp"
+            android:text="+"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editAlat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editAlat" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAlat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/editAlat"
+            tools:layout_editor_absoluteX="8dp" />
+
+        <TextView
+            android:id="@+id/txtBahan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Bahan :"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvAlat" />
+        <EditText
+            android:id="@+id/editBahan"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingLeft="3dp"
+            android:background="@drawable/btn_p"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="@+id/txtBahan"
+            app:layout_constraintEnd_toStartOf="@+id/addBahan"
+            app:layout_constraintStart_toEndOf="@+id/txtBahan"
+            app:layout_constraintTop_toTopOf="@+id/txtBahan" />
+        <TextView
+            android:id="@+id/addBahan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_p"
+            android:text="+"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:paddingHorizontal="13dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editBahan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editBahan" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBahan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtBahan" />
+
+        <TextView
+            android:id="@+id/txtLangkah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Langkah :"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvBahan" />
+
+        <EditText
+            android:id="@+id/editLangkah"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_p"
+            android:inputType="text"
+            android:paddingLeft="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtLangkah"
+            app:layout_constraintEnd_toStartOf="@+id/addLangkah"
+            app:layout_constraintStart_toEndOf="@+id/txtLangkah"
+            app:layout_constraintTop_toTopOf="@+id/txtLangkah" />
+
+        <TextView
+            android:id="@+id/addLangkah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/btn_p"
+            android:paddingHorizontal="13dp"
+            android:text="+"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editLangkah"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editLangkah" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLangkah"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtLangkah"
+            tools:layout_editor_absoluteX="12dp" />
+        <TextView
+            android:id="@+id/txtInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Info :"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvLangkah" />
+        <EditText
+            android:id="@+id/editInfo"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingLeft="3dp"
+            android:background="@drawable/btn_p"
+            android:inputType="text"
+            app:layout_constraintBottom_toBottomOf="@+id/txtInfo"
+            app:layout_constraintEnd_toStartOf="@+id/addInfo"
+            app:layout_constraintStart_toEndOf="@+id/txtInfo"
+            app:layout_constraintTop_toTopOf="@+id/txtInfo" />
+        <TextView
+            android:id="@+id/addInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_p"
+            android:text="+"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:paddingHorizontal="13dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editInfo" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtInfo" />
+
+        <Button
+            android:id="@+id/btnSimpan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_p"
+            android:text="Simpan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvInfo" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

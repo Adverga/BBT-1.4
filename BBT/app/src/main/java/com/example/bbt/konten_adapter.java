@@ -24,8 +24,7 @@ public class konten_adapter extends RecyclerView.Adapter<konten_adapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.txt_title);
-            thumbnail = itemView.findViewById(R.id.thumbnail);
+
         }
     }
     public konten_adapter(Context mContext, List<konten> kontenList){
