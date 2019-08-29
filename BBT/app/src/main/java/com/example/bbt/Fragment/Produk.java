@@ -8,12 +8,12 @@ public class Produk {
     private List<String> listBahan;
     private List<String> listLangkah;
     private List<String> listInfo;
-    private int image;
+    private String image;
 
     public Produk() {
     }
 
-    public Produk(String judul, List<String> listAlat, List<String> listBahan, List<String> listLangkah, List<String> listInfo, int image) {
+    public Produk(String judul, List<String> listAlat, List<String> listBahan, List<String> listLangkah, List<String> listInfo, String image) {
         this.judul = judul;
         this.listAlat = listAlat;
         this.listBahan = listBahan;
@@ -54,11 +54,11 @@ public class Produk {
         this.listLangkah = listLangkah;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
