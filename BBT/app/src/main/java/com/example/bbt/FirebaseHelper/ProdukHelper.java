@@ -25,16 +25,15 @@ import java.util.List;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class ProdukHelper {
-    StorageReference sr;
     DatabaseReference db;
     Boolean saved=null;
     List<Produk> produkList = new ArrayList<>();
-    String tipe,imageUri;
+    String tipe;
     public ProdukHelper(DatabaseReference db, String tipe){
         this.db = db;
         this.tipe = tipe;
     }
-    public boolean save(Produk produk, Uri imageUri){
+    public boolean save(Produk produk){
         if (produk == null){
             saved = false;
         }else {

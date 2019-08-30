@@ -18,21 +18,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.bbt.Adapter.abAdapter;
 import com.example.bbt.FirebaseHelper.ProdukHelper;
 import com.example.bbt.R;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -117,6 +123,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        helper = new ProdukHelper(databaseReference,tipe);
 
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,13 +143,43 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
     private void simpan() {
         String judul = editJudul.getText().toString();
-        Produk produk = new Produk(judul, listAlat, listBahan, listLangkah, listInfo, "");
+        final String[] image = {null};
+        if (imageUri != null)
+        {
+            storageReference.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
+            {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
+                {
+                    if (!task.isSuccessful())
+                    {
+                        throw task.getException();
+                    }
+                    return storageReference.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>()
+            {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task)
+                {
+                    if (task.isSuccessful())
+                    {
+                        Uri downloadUri = task.getResult();
+                        image[0] = downloadUri.toString();
+                        Log.e(TAG, "then: " + downloadUri.toString());
+                    } else
+                    {
+                        Toast.makeText(getActivity(), "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT);
+                    }
+                }
+            });
+        }
+        Produk produk = new Produk(judul, listAlat, listBahan, listLangkah, listInfo, image[0]);
         if (inputValidated()){
-            if (helper.save(produk, imageUri)){
+            if (helper.save(produk)){
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fmContainer, new HomeFragment())
                         .commit();
-
             }
         }
     }

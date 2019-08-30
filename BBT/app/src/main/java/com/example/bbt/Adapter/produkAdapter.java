@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.bbt.Fragment.AddFragment;
 import com.example.bbt.Fragment.ItemClickListener;
 import com.example.bbt.Fragment.Produk;
+import com.example.bbt.Fragment.ViewProdukFragment;
 import com.example.bbt.R;
 
 import java.util.List;
@@ -67,10 +68,11 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
             public void onClick(View view) {
                 Rak.entry("listAlat",produk.getListAlat());
                 Rak.entry("listBahan", produk.getListBahan());
-                Rak.entry("listinfo", produk.getListInfo());
+                Rak.entry("listInfo", produk.getListInfo());
                 Rak.entry("listLangkah", produk.getListLangkah());
-
-
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fmContainer, new ViewProdukFragment())
+                        .commit();
             }
         });
     }

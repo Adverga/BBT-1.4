@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragment.fm_alatbahan">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/txtviewAlat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alat"
+            android:textSize="32dp"
+            android:textColor="@color/black"/>
+        <ListView
+            android:id="@+id/listviewAlat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtviewBahan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bahan"
+            android:textSize="32dp"
+            android:textColor="@color/black"/>
+        <ListView
+            android:id="@+id/listviewBahan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</ScrollView>
