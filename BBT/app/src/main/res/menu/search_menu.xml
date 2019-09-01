@@ -8,16 +8,4 @@
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
-    <item android:id="@+id/bantuan"
-        android:title="Bantuan"
-        app:showAsAction="never"/>
-
-    <item android:id="@+id/tentangKami"
-        android:title="Tentang Kami"
-        app:showAsAction="never"/>
-
-    <item android:id="@+id/signout"
-        android:title="Sign Out!"
-        app:showAsAction="never"/>
-
 </menu>

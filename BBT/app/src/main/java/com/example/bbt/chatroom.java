@@ -65,7 +65,7 @@ public class chatroom extends AppCompatActivity {
         user_name = getIntent().getExtras().get("user_name").toString();
         room_name = getIntent().getExtras().get("room_name").toString();
         mod = getIntent().getExtras().get("mod").toString();
-        setTitle("Room - "+room_name);
+        setTitle(room_name);
 
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
