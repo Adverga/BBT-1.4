@@ -6,4 +6,12 @@
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="confirmPassword">Confirm Password</string>
+    <string name="menuHome">Home</string>
+    <string name="menuContact">Contact</string>
+    <string name="menuChat">Chat</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alat">Alat</string>
+    <string name="bahan">Bahan</string>
 </resources>
