@@ -25,7 +25,7 @@ import io.isfaaghyth.rak.Rak;
 public class Main4Activity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private String mod;
+    private String name, mod;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -36,6 +36,7 @@ public class Main4Activity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
         firebaseAuth = FirebaseAuth.getInstance();
+        name = getIntent().getExtras().get("user_name").toString();
         mod = getIntent().getExtras().get("mod").toString();
 
         Rak.initialize(getApplicationContext());
@@ -59,7 +60,7 @@ public class Main4Activity extends AppCompatActivity {
                     fm = new ContactFragment();
                     break;
                 case R.id.menuChat :
-                    fm = new ChatFragment();
+                    fm = new ChatFragment(name, mod);
             }
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fmContainer, fm)
