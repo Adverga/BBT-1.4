@@ -56,20 +56,21 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     private void register(){
         if (inputValidated()){
-            final String username = inuser.getText().toString()+"@gmail.com",
+            final String username = inuser.getText().toString(),
                     password = inpass.getText().toString(),
-                    email = inemail.getText().toString(),
-                    trueUsername = inuser.getText().toString();
+                    email = inemail.getText().toString();
+                    //trueUsername = inuser.getText().toString();
 
-            firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        User user = new User(firebaseAuth.getCurrentUser().getUid(), trueUsername, email);
+                        User user = new User(firebaseAuth.getCurrentUser().getUid(), username, email);
                         databaseReference.child("Admin").child("User").child(firebaseAuth.getCurrentUser().getUid()).setValue(user);
                         Toast.makeText(Register.this,"User Created", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Register.this, MainActivity.class);
+                        Intent intent = new Intent(Register.this, Decide.class);
                         startActivity(intent);
+                        finish();
                         //progressDialog.dismiss();
                     } else {
                         Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();

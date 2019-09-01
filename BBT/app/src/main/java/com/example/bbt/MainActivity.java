@@ -109,9 +109,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void login(){
         if (inputValidated()){
-            String username = this.inuser.getText().toString()+"@gmail.com";
+            String email = this.inuser.getText().toString();
             String password = this.inpass.getText().toString();
-            firebaseAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){

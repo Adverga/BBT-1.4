@@ -1,11 +1,18 @@
 package com.example.bbt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +45,8 @@ public class chatroom extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private final List<Messages> messagesList = new ArrayList<>();
+    private final List<Messages> messagesListFull = new ArrayList<>();
+
     private LinearLayoutManager linearLayoutManager;
     private MessageAdapter messageAdapter;
     private RecyclerView userMessagesList;
@@ -46,13 +55,17 @@ public class chatroom extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
+
+        Toolbar toolbar = findViewById(R.id.toolbarChatroom);
+        setSupportActionBar(toolbar);
+
         btn_send_msg = (Button)findViewById(R.id.button);
         input_msg = (EditText)findViewById(R.id.editText);
         //chat_conversation = (TextView)findViewById(R.id.textView);
         user_name = getIntent().getExtras().get("user_name").toString();
         room_name = getIntent().getExtras().get("room_name").toString();
         mod = getIntent().getExtras().get("mod").toString();
-        setTitle("Room - "+room_name);
+        setTitle(room_name);
 
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
@@ -60,11 +73,11 @@ public class chatroom extends AppCompatActivity {
         root = FirebaseDatabase.getInstance().getReference().child(room_name);
         realRoot = FirebaseDatabase.getInstance().getReference(room_name);
 
-        messageAdapter = new MessageAdapter(messagesList);
+        /*messageAdapter = new MessageAdapter(messagesList);
         userMessagesList = (RecyclerView) findViewById(R.id.private_messages_list_of_users);
         linearLayoutManager = new LinearLayoutManager(this);
         userMessagesList.setLayoutManager(linearLayoutManager);
-        userMessagesList.setAdapter(messageAdapter);
+        userMessagesList.setAdapter(messageAdapter);*/
 
         btn_send_msg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,13 +150,18 @@ public class chatroom extends AppCompatActivity {
             }
         });
 
-        messageAdapter = new MessageAdapter(messagesList);
+        messageAdapter = new MessageAdapter(messagesList, messagesListFull);
         userMessagesList = (RecyclerView) findViewById(R.id.private_messages_list_of_users);
         linearLayoutManager = new LinearLayoutManager(this);
         userMessagesList.setLayoutManager(linearLayoutManager);
         userMessagesList.setAdapter(messageAdapter);
 
     }
+
+    private void setUpRecyclerView(){
+
+    }
+
     private String chat_msg, chat_user_name;
 
     private void append_chat_conversatin(DataSnapshot dataSnapshot) {
@@ -173,12 +191,51 @@ public class chatroom extends AppCompatActivity {
             Log.d(TAG, "Iki lho: "+messages.getId());
 
             messagesList.add(messages);
+            messagesListFull.add(messages);
             messageAdapter.notifyDataSetChanged();
 
             //chat_conversation.append(chat_user_name + " : "+chat_msg +"\n");
 
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                messageAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.signout:
+                mAuth.signOut();
+                Toast.makeText(getApplicationContext(), "Signing Out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }
