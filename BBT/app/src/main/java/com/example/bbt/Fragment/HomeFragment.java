@@ -15,6 +15,7 @@ import com.example.bbt.R;
 import com.example.bbt.Adapter.homeAdapter;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,7 +26,7 @@ public class HomeFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private List<Produk> listBudidaya, listPengolahan, listProteksi, listPenyuluhan, listSosial;
+    private ArrayList<Produk> listBudidaya, listPengolahan, listProteksi, listPenyuluhan, listSosial;
     private boolean mod;
 
     public HomeFragment() {

@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,16 @@ import com.example.bbt.Adapter.produkAdapter;
 import com.example.bbt.FirebaseHelper.ProdukHelper;
 import com.example.bbt.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,9 +38,11 @@ public class ProdukFragment extends Fragment {
     private TextView btnAdd;
     private String tipe;
     private FirebaseAuth firebaseAuth;
-    private List<Produk> produkList;
+    private ArrayList<Produk> produkList;
+    private ArrayList<String> listKeys, listData;
     private DatabaseReference db;
     private ProdukHelper helper;
+    private produkAdapter adapter;
 
     public ProdukFragment(String tipe) {
         this.tipe = tipe;
@@ -51,14 +61,17 @@ public class ProdukFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvProduk = view.findViewById(R.id.rvProduk);
         btnAdd = view.findViewById(R.id.btnAdd);
-        produkList = new ArrayList<>();
 
-        db = FirebaseDatabase.getInstance().getReference();
+        db = FirebaseDatabase.getInstance().getReference(tipe);
         helper = new ProdukHelper(db, tipe);
+        System.out.println("helper : "+helper.retrieve());
+//        Log.d("cek list",produkList.get(0).getJudul());
 
+        produkList = helper.retrieve();
         rvProduk.setLayoutManager(new LinearLayoutManager(getContext()));
-        produkAdapter adapter = new produkAdapter(getActivity(),getContext(),helper.retrieve(),tipe);
+        adapter = new produkAdapter(getActivity(),getContext(),produkList,tipe);
         rvProduk.setAdapter(adapter);
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +80,5 @@ public class ProdukFragment extends Fragment {
                         .commit();
             }
         });
-
-
     }
 }

@@ -1,5 +1,6 @@
 package com.example.bbt.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,25 +18,31 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.bbt.Adapter.abAdapter;
 import com.example.bbt.FirebaseHelper.ProdukHelper;
+import com.example.bbt.MainActivity;
 import com.example.bbt.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -48,13 +55,15 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private EditText editJudul, editAlat, editBahan, editLangkah, editInfo;
     private RecyclerView rvAlat, rvBahan, rvLangkah, rvInfo;
     private TextView addAlat, addBahan, idTipe, addLangkah, addInfo;
-    private List<String> listAlat, listBahan, listLangkah, listInfo;
+    private ArrayList<String> listAlat, listBahan, listLangkah, listInfo;
     private abAdapter alatAdapter, bahanAdapter, langkahAdapter, infoAdapter;
     private ImageView imageUpload;
     private Button btnSimpan, btnUpload;
     private String tipe;
     private Produk data;
 
+    private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
@@ -93,6 +102,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         addLangkah = view.findViewById(R.id.addLangkah);
         addInfo = view.findViewById(R.id.addInfo);
         btnSimpan = view.findViewById(R.id.btnSimpan);
+        progressBar = view.findViewById(R.id.progressBar);
         //setTipe
         idTipe.setText(idTipe.getText()+tipe);
         //setup image
@@ -135,53 +145,56 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
     private void setupData() {
         editJudul.setText(data.getJudul());
-        listAlat = data.getListAlat();
-        listBahan = data.getListBahan();
-        listLangkah = data.getListLangkah();
-        listInfo = data.getListInfo();
+//        listAlat = data.getListAlat();
+//        listBahan = data.getListBahan();
+//        listLangkah = data.getListLangkah();
+//        listInfo = data.getListInfo();
     }
 
     private void simpan() {
-        String judul = editJudul.getText().toString();
-        final String[] image = {null};
-        if (imageUri != null)
+        final String judul = editJudul.getText().toString();
+        final String imageRef = "images/"+judul.trim().concat(" ")+".jpg";
+        if(imageUri != null)
         {
-            storageReference.putFile(imageUri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
-            {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
-                {
-                    if (!task.isSuccessful())
-                    {
-                        throw task.getException();
-                    }
-                    return storageReference.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>()
-            {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task)
-                {
-                    if (task.isSuccessful())
-                    {
-                        Uri downloadUri = task.getResult();
-                        image[0] = downloadUri.toString();
-                        Log.e(TAG, "then: " + downloadUri.toString());
-                    } else
-                    {
-                        Toast.makeText(getActivity(), "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT);
-                    }
-                }
-            });
+            final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+            StorageReference ref = storageReference.child(imageRef);
+            ref.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_SHORT).show();
+                            Produk produk = new Produk();
+                            produk.setJudul(judul);
+                            produk.setImage(imageRef);
+                            if (inputValidated()){
+                                if (helper.save(produk, listAlat, listBahan, listLangkah, listInfo)){
+                                    getActivity().getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.fmContainer, new HomeFragment())
+                                            .commit();
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
         }
-        Produk produk = new Produk(judul, listAlat, listBahan, listLangkah, listInfo, image[0]);
-        if (inputValidated()){
-            if (helper.save(produk)){
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fmContainer, new HomeFragment())
-                        .commit();
-            }
-        }
+
     }
 
     private boolean inputValidated() {

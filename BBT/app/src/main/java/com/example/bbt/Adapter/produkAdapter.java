@@ -1,6 +1,7 @@
 package com.example.bbt.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,12 +42,6 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.konten_card, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         return viewHolder;
     }
 
@@ -54,15 +49,18 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Produk produk = produkList.get(position);
         holder.textView.setText(produk.getJudul());
+        Log.d("cek judul",produk.getJudul());
 
-        Glide.with(mContext).load(produk.getImage()).into(holder.imageView);
+        if (produk.getImage() == null){
+            Glide.with(mContext).load(R.drawable.btn_p).into(holder.imageView);
+        }else Glide.with(mContext).load(produk.getImage()).into(holder.imageView);
 
-        holder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onItemClick(int pos) {
-                openEdit(produkList.get(pos));
-            }
-        });
+//        holder.setItemClickListener(new ItemClickListener() {
+//            @Override
+//            public void onItemClick(int pos) {
+//                openEdit(produkList.get(pos));
+//            }
+//        });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
