@@ -25,27 +25,20 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.bbt.Adapter.abAdapter;
 import com.example.bbt.FirebaseHelper.ProdukHelper;
-import com.example.bbt.MainActivity;
 import com.example.bbt.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -154,47 +147,79 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private void simpan() {
         final String judul = editJudul.getText().toString();
         final String imageRef = "images/"+judul.trim().concat(" ")+".jpg";
-        if(imageUri != null)
-        {
-            final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            StorageReference ref = storageReference.child(imageRef);
-            ref.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_SHORT).show();
-                            Produk produk = new Produk();
-                            produk.setJudul(judul);
-                            produk.setImage(imageRef);
-                            if (inputValidated()){
-                                if (helper.save(produk, listAlat, listBahan, listLangkah, listInfo)){
-                                    getActivity().getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.fmContainer, new HomeFragment())
-                                            .commit();
-                                }
-                            }
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
-                    });
-        }
+//        if(imageUri != null)
+//        {
+//            final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+//            progressDialog.setTitle("Uploading...");
+//            progressDialog.show();
+//            StorageReference ref = storageReference.child(imageRef);
+//            ref.putFile(imageUri)
+//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                            progressDialog.dismiss();
+//                            Toast.makeText(getContext(), "Uploaded", Toast.LENGTH_SHORT).show();
+//                            Produk produk = new Produk();
+//                            produk.setJudul(judul);
+//                            produk.setImage(taskSnapshot.getDownloadUrl());
+//                            if (inputValidated()){
+//                                if (helper.save(produk, listAlat, listBahan, listLangkah, listInfo)){
+//                                    getActivity().getSupportFragmentManager().beginTransaction()
+//                                            .replace(R.id.fmContainer, new HomeFragment())
+//                                            .commit();
+//                                }
+//                            }
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            progressDialog.dismiss();
+//                            Toast.makeText(getContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
+//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+//                                    .getTotalByteCount());
+//                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+//                        }
+//                    });
+//        }
 
+        Uri file = imageUri;
+        final StorageReference ref = storageReference.child("images/mountains.jpg");
+        UploadTask uploadTask = ref.putFile(file);
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                return ref.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    progressDialog.dismiss();
+                    Uri downloadUri = task.getResult();
+                    Produk produk = new Produk();
+                    produk.setJudul(judul);
+                    produk.setImage(downloadUri.toString());
+                    if (inputValidated()){
+                        if (helper.save(produk, listAlat, listBahan, listLangkah, listInfo)){
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.fmContainer, new HomeFragment())
+                                    .commit();
+                        }
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Failed ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private boolean inputValidated() {

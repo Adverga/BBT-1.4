@@ -51,9 +51,9 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
         holder.textView.setText(produk.getJudul());
         Log.d("cek judul",produk.getJudul());
 
-        if (produk.getImage() == null){
-            Glide.with(mContext).load(R.drawable.btn_p).into(holder.imageView);
-        }else Glide.with(mContext).load(produk.getImage()).into(holder.imageView);
+        //if (produk.getImage() == null){
+        Glide.with(mContext).load(R.drawable.btn_p).into(holder.imageView);
+        //}else Glide.with(mContext).load(produk.getImage()).into(holder.imageView);
 
 //        holder.setItemClickListener(new ItemClickListener() {
 //            @Override
