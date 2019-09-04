@@ -99,6 +99,7 @@ public class ProdukFragment extends Fragment {
         rvProduk.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new produkAdapter(getActivity(),getContext(),produkList,tipe);
         rvProduk.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

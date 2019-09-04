@@ -22,15 +22,13 @@ import com.example.bbt.R;
 
 import java.util.List;
 
-import io.isfaaghyth.rak.Rak;
-
 public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder> {
     private Context mContext;
     private List<Produk> produkList;
     private FragmentActivity activity;
     private String tipe;
 
-    public produkAdapter(FragmentActivity activity, Context mContext, List<Produk> produkList, String tipe) {
+    public produkAdapter(FragmentActivity activity, Context mContext, final List<Produk> produkList, final String tipe) {
         this.mContext = mContext;
         this.produkList = produkList;
         this.activity = activity;
@@ -46,21 +44,28 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Produk produk = produkList.get(position);
         holder.textView.setText(produk.getJudul());
         Log.d("cek judul",produk.getJudul());
 
-        //if (produk.getImage() == null){
+        if (produk.getImage() == null){
         Glide.with(mContext).load(R.drawable.bbppok).into(holder.imageView);
-        //}else Glide.with(mContext).load(produk.getImage()).into(holder.imageView);
-        holder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onItemClick(int pos) {
+        }else Glide.with(mContext).load(produk.getImage()).into(holder.imageView);
 
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("cek click item","no "+position);
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fmContainer, ViewProdukFragment.newInstance(
+                                produk.getListAlat(),
+                                produk.getListBahan(),
+                                produk.getListLangkah(),
+                                produk.getListInfo()
+                        )).commit();
             }
         });
-
     }
 
     private void openEdit(Produk produk) {
@@ -82,6 +87,7 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
             super(itemView);
             textView = itemView.findViewById(R.id.kText);
             imageView = itemView.findViewById(R.id.kImage);
+            cardView = itemView.findViewById(R.id.kCardView);
 
             itemView.setOnClickListener(this);
         }

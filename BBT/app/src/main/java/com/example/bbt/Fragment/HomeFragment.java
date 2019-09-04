@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
     private Map<String, ArrayList<Produk>> map = new HashMap<>();
     private String[] tipe = {"Budidaya","Pengolahan","Proteksi","Penyuluhan","Sosial"};
     private String[] title = {"Budidaya Pertanian","Pengolahan Hasil","Proteksi Tanaman","Penyuluhan Pertanian","Sosial Ekonomi"};
-    private boolean mod;
     private ProgressDialog progressDialog;
 
     public HomeFragment() {

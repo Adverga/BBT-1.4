@@ -20,21 +20,9 @@ public class ProdukHelper {
     Boolean saved=null;
     ArrayList<Produk> produkList = new ArrayList<>();
     String tipe;
-    int index=0;
     public ProdukHelper(DatabaseReference db, String tipe){
-        this.db = db;
+        this.db = db.child("Produk");
         this.tipe = tipe;
-        db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                fetchData(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
     public boolean save(Produk produk, ArrayList<String> listAlat, ArrayList<String> listBahan, ArrayList<String> listLangkah, ArrayList<String> listInfo){
         if (produk == null){
@@ -61,33 +49,6 @@ public class ProdukHelper {
             }
         }
         return saved;
-    }
-
-    private void fetchData(DataSnapshot dataSnapshot){
-        for (DataSnapshot ds : dataSnapshot.child(tipe).getChildren()){
-            Produk p = ds.getValue(Produk.class);
-            Log.d("cek lagi", String.valueOf(ds.getKey()));
-            if (p!=null) {
-                produkList.add(p);
-                Log.d("cek p listalat",p.getListAlat());
-            }
-        }
-//        String img = String.valueOf(dataSnapshot.child("image").getValue());
-//        String judul = String.valueOf(dataSnapshot.child("judul").getValue());
-//        ArrayList<String> listAlat = (ArrayList<String>) dataSnapshot.child("listAlat").getValue();
-//        ArrayList<String> listBahan = (ArrayList<String>) dataSnapshot.child("listBahan").getValue();
-//        ArrayList<String> listLangkah = (ArrayList<String>) dataSnapshot.child("listLangkah").getValue();
-//        ArrayList<String> listInfo = (ArrayList<String>) dataSnapshot.child("listInfo").getValue();
-//        Log.d("cek data", img + " tipe : "+ tipe);
-//        Log.d("cek data", judul + " tipe : "+ tipe);
-//        Log.d("cek listA", listAlat + " tipe : "+ tipe);
-//        Log.d("cek listB", listBahan + " tipe : "+ tipe);
-//        Log.d("cek listL", listLangkah + " tipe : "+ tipe);
-//        Log.d("cek listI", listInfo + " tipe : "+ tipe);
-//        Produk p = new Produk(judul,listAlat,listBahan,listLangkah,listInfo,img);
-//        Log.d("cek p ",p.getJudul()+index++);
-//        produkList.add(p);
-        System.out.println("size : "+produkList.size());
     }
     public ArrayList<Produk> retrieve(){
         return produkList;
