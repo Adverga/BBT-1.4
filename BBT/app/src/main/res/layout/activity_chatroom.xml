@@ -37,7 +37,8 @@
         android:layout_below="@+id/toolbarChatroom1"
         android:layout_marginBottom="0dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingRight="16dp"
+        android:background="@drawable/untitled">
 
     </androidx.recyclerview.widget.RecyclerView>
 

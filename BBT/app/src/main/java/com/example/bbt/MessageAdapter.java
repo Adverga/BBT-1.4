@@ -90,11 +90,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             if(fromMod.equals("true")){
                 //holder.receiverMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
-                holder.messageProfileName.setBackgroundResource(R.drawable.messages_layout_admin);
+                //holder.messageProfileName.setBackgroundResource(R.drawable.messages_layout_admin);
             }
             else{
                 //holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
-                holder.messageProfileName.setBackgroundResource(R.drawable.messages_layout_user);
+                //holder.messageProfileName.setBackgroundResource(R.drawable.messages_layout_user);
             }
 
             holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
