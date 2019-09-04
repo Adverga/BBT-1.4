@@ -1,19 +1,17 @@
 package com.example.bbt.Fragment;
 
-import java.util.List;
-
 public class Produk {
     private String judul;
-    private List<String> listAlat;
-    private List<String> listBahan;
-    private List<String> listLangkah;
-    private List<String> listInfo;
+    private String listAlat;
+    private String listBahan;
+    private String listLangkah;
+    private String listInfo;
     private String image;
 
     public Produk() {
     }
 
-    public Produk(String judul, List<String> listAlat, List<String> listBahan, List<String> listLangkah, List<String> listInfo, String image) {
+    public Produk(String judul, String listAlat, String listBahan, String listLangkah, String listInfo, String image) {
         this.judul = judul;
         this.listAlat = listAlat;
         this.listBahan = listBahan;
@@ -30,27 +28,27 @@ public class Produk {
         this.judul = judul;
     }
 
-    public List<String> getListAlat() {
+    public String getListAlat() {
         return listAlat;
     }
 
-    public void setListAlat(List<String> listAlat) {
+    public void setListAlat(String listAlat) {
         this.listAlat = listAlat;
     }
 
-    public List<String> getListBahan() {
+    public String getListBahan() {
         return listBahan;
     }
 
-    public void setListBahan(List<String> listBahan) {
+    public void setListBahan(String listBahan) {
         this.listBahan = listBahan;
     }
 
-    public List<String> getListLangkah() {
+    public String getListLangkah() {
         return listLangkah;
     }
 
-    public void setListLangkah(List<String> listLangkah) {
+    public void setListLangkah(String listLangkah) {
         this.listLangkah = listLangkah;
     }
 
@@ -62,11 +60,11 @@ public class Produk {
         this.image = image;
     }
 
-    public List<String> getListInfo() {
+    public String getListInfo() {
         return listInfo;
     }
 
-    public void setListInfo(List<String> listInfo) {
+    public void setListInfo(String listInfo) {
         this.listInfo = listInfo;
     }
 }
