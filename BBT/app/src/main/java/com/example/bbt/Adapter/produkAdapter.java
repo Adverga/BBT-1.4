@@ -52,27 +52,15 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
         Log.d("cek judul",produk.getJudul());
 
         //if (produk.getImage() == null){
-        Glide.with(mContext).load(R.drawable.btn_p).into(holder.imageView);
+        Glide.with(mContext).load(R.drawable.bbppok).into(holder.imageView);
         //}else Glide.with(mContext).load(produk.getImage()).into(holder.imageView);
-
-//        holder.setItemClickListener(new ItemClickListener() {
-//            @Override
-//            public void onItemClick(int pos) {
-//                openEdit(produkList.get(pos));
-//            }
-//        });
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.setItemClickListener(new ItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Rak.entry("listAlat",produk.getListAlat());
-                Rak.entry("listBahan", produk.getListBahan());
-                Rak.entry("listInfo", produk.getListInfo());
-                Rak.entry("listLangkah", produk.getListLangkah());
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fmContainer, new ViewProdukFragment())
-                        .commit();
+            public void onItemClick(int pos) {
+
             }
         });
+
     }
 
     private void openEdit(Produk produk) {

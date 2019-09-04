@@ -11,6 +11,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class ProdukHelper {
@@ -20,8 +22,19 @@ public class ProdukHelper {
     String tipe;
     int index=0;
     public ProdukHelper(DatabaseReference db, String tipe){
-        this.db = db.child("Produk");
+        this.db = db;
         this.tipe = tipe;
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                fetchData(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
     public boolean save(Produk produk, ArrayList<String> listAlat, ArrayList<String> listBahan, ArrayList<String> listLangkah, ArrayList<String> listInfo){
         if (produk == null){
@@ -51,10 +64,13 @@ public class ProdukHelper {
     }
 
     private void fetchData(DataSnapshot dataSnapshot){
-        for (DataSnapshot ds : dataSnapshot.getChildren()){
-            Produk p = (Produk) ds.child(tipe).getValue();
-            Log.d("cek p listalat",p.getListAlat());
-            produkList.add(p);
+        for (DataSnapshot ds : dataSnapshot.child(tipe).getChildren()){
+            Produk p = ds.getValue(Produk.class);
+            Log.d("cek lagi", String.valueOf(ds.getKey()));
+            if (p!=null) {
+                produkList.add(p);
+                Log.d("cek p listalat",p.getListAlat());
+            }
         }
 //        String img = String.valueOf(dataSnapshot.child("image").getValue());
 //        String judul = String.valueOf(dataSnapshot.child("judul").getValue());
@@ -74,33 +90,6 @@ public class ProdukHelper {
         System.out.println("size : "+produkList.size());
     }
     public ArrayList<Produk> retrieve(){
-        db.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                fetchData(dataSnapshot);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                fetchData(dataSnapshot);
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         return produkList;
     }
 }

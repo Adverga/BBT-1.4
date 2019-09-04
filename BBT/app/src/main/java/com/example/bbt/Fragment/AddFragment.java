@@ -28,6 +28,7 @@ import com.example.bbt.FirebaseHelper.ProdukHelper;
 import com.example.bbt.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -147,8 +148,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private void simpan() {
         final String judul = editJudul.getText().toString();
         final String imageRef = "images/"+judul.trim().concat(" ")+".jpg";
-//        if(imageUri != null)
-//        {
+        if(imageUri != null) {
 //            final ProgressDialog progressDialog = new ProgressDialog(getActivity());
 //            progressDialog.setTitle("Uploading...");
 //            progressDialog.show();
@@ -188,38 +188,48 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 //                    });
 //        }
 
-        Uri file = imageUri;
-        final StorageReference ref = storageReference.child("images/mountains.jpg");
-        UploadTask uploadTask = ref.putFile(file);
-        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw task.getException();
-                }
-                return ref.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    progressDialog.dismiss();
-                    Uri downloadUri = task.getResult();
-                    Produk produk = new Produk();
-                    produk.setJudul(judul);
-                    produk.setImage(downloadUri.toString());
-                    if (inputValidated()){
-                        if (helper.save(produk, listAlat, listBahan, listLangkah, listInfo)){
-                            getActivity().getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.fmContainer, new HomeFragment())
-                                    .commit();
-                        }
+            Uri file = imageUri;
+            final StorageReference ref = storageReference.child("images/mountains.jpg");
+            UploadTask uploadTask = ref.putFile(file);
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        Log.d("task : ","gagalcontinue");
+                        throw task.getException();
                     }
-                } else {
-                    Toast.makeText(getContext(), "Failed ", Toast.LENGTH_SHORT).show();
+                    return ref.getDownloadUrl();
                 }
-            }
-        });
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Log.d("task : ","berhasil");
+                        progressDialog.dismiss();
+                        Uri downloadUri = task.getResult();
+                        Produk produk = new Produk();
+                        produk.setJudul(judul);
+                        produk.setImage(downloadUri.toString());
+                        if (inputValidated()) {
+                            if (helper.save(produk, listAlat, listBahan, listLangkah, listInfo)) {
+                                getActivity().getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.fmContainer, new HomeFragment())
+                                        .commit();
+                            }
+                        }
+                    } else {
+                        Log.d("task : ","gagal else oncomplete");
+                        Toast.makeText(getContext(), "Failed ", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("task : ","gagal failure");
+                    Toast.makeText(getContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private boolean inputValidated() {
