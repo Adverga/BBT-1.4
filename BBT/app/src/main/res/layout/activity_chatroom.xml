@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.example.bbt.chatroom"
-    android:background="#F2F2F2"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/background"
+    >
 
     <!--android:paddingBottom="16dp"
     android:paddingLeft="16dp"
@@ -18,7 +19,9 @@
         android:id="@+id/toolbarChatroom1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarChatroom"
@@ -31,14 +34,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/private_messages_list_of_users"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/liner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_below="@+id/toolbarChatroom1"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="8dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:background="@drawable/untitled">
+        app:layout_constraintBottom_toTopOf="@+id/editText1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarChatroom1">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -58,36 +63,42 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </ScrollView>-->
 
-    <LinearLayout
-        android:id="@+id/liner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:paddingBottom="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/editText1"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/receiver_messages_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:layout_width="59dp"
-            android:layout_height="wrap_content"
             android:id="@+id/editText"
-            android:layout_alignTop="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/button"
-            android:layout_weight="1.02" />
+            android:layout_weight="1.02"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:layout_width="52dp"
-            android:layout_height="wrap_content"
             android:id="@+id/button"
             style="?android:attr/borderlessButtonStyle"
-            android:drawableLeft="@drawable/ic_send_black_24dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_send_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editText"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
