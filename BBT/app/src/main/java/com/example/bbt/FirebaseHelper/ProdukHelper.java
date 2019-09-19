@@ -24,24 +24,29 @@ public class ProdukHelper {
         this.db = db.child("Produk");
         this.tipe = tipe;
     }
-    public boolean save(Produk produk, ArrayList<String> listAlat, ArrayList<String> listBahan, ArrayList<String> listLangkah, ArrayList<String> listInfo){
+    public boolean save(Produk produk, ArrayList<String> listAlat, ArrayList<String> listBahan, ArrayList<String> listLangkah, ArrayList<String> listLangkahImg, ArrayList<String> listInfo){
         if (produk == null){
             saved = false;
         }else {
             try {
                 String sListKey = db.child("listAlat").push().getKey();
-                db.child("listAlat").push().setValue(listAlat);
+                db.child("listAlat").child(sListKey).setValue(listAlat);
                 produk.setListAlat(sListKey);
                 sListKey = db.child("listBahan").push().getKey();
-                db.child("listBahan").push().setValue(listBahan);
+                db.child("listBahan").child(sListKey).setValue(listBahan);
                 produk.setListBahan(sListKey);
                 sListKey = db.child("listLangkah").push().getKey();
-                db.child("listLangkah").push().setValue(listLangkah);
+                db.child("listLangkah").child(sListKey).setValue(listLangkah);
                 produk.setListLangkah(sListKey);
+                sListKey = db.child("listLangkahImg").push().getKey();
+                db.child("listLangkahImg").child(sListKey).setValue(listLangkah);
+                produk.setListLangkahImg(sListKey);
                 sListKey = db.child("listInfo").push().getKey();
-                db.child("listInfo").push().setValue(listInfo);
+                db.child("listInfo").child(sListKey).setValue(listInfo);
                 produk.setListInfo(sListKey);
-                db.child(tipe).push().setValue(produk);
+                String key = db.child(tipe).push().getKey();
+                produk.setKey(key);
+                db.child(tipe).child(key).setValue(produk);
                 saved = true;
             }catch (DatabaseException e){
                 e.printStackTrace();

@@ -7,16 +7,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.bbt.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,20 +36,23 @@ import java.util.ArrayList;
 public class fm_alatbahan extends Fragment {
 
 
-    private ArrayList<String> listAlat;
-    private ArrayList<String> listBahan;
+    private ArrayList<String> listAlat = new ArrayList<>();
+    private ArrayList<String> listBahan = new ArrayList<>();
     private ListView listviewAlat;
     private ListView listviewBahan;
+    private ArrayAdapter<String> alatAdapter, bahanAdapter;
+    private String keyAlat, keyBahan;
+    private DatabaseReference db = FirebaseDatabase.getInstance().getReference("Produk");
 
     public fm_alatbahan() {
         // Required empty public constructor
     }
 
-    public static fm_alatbahan newInstance(ArrayList<String> param1, ArrayList<String> param2) {
+    public static fm_alatbahan newInstance(String keyAlat, String keyBahan) {
         fm_alatbahan fragment = new fm_alatbahan();
         Bundle args = new Bundle();
-        args.putStringArrayList("listAlat", param1);
-        args.putStringArrayList("listBahan", param2);
+        args.putString("listAlat", keyAlat);
+        args.putString("listBahan", keyBahan);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,8 +61,8 @@ public class fm_alatbahan extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            listAlat = getArguments().getStringArrayList("listAlat");
-            listBahan = getArguments().getStringArrayList("listBahan");
+            keyAlat = getArguments().getString("listAlat");
+            keyBahan = getArguments().getString("listBahan");
         }
     }
 
@@ -63,36 +78,33 @@ public class fm_alatbahan extends Fragment {
         listviewAlat = view.findViewById(R.id.listviewAlat);
         listviewBahan = view.findViewById(R.id.listviewBahan);
 
-        listviewAlat.setAdapter(new AlatAdap(listAlat));
-        listviewBahan.setAdapter(new AlatAdap(listBahan));
-    }
+        alatAdapter = new ArrayAdapter<>(getActivity(), R.layout.text_card, listAlat);
+        bahanAdapter = new ArrayAdapter<>(getActivity(), R.layout.text_card, listBahan);
 
-    class AlatAdap extends BaseAdapter{
-        ArrayList<String> arrayList;
-        public AlatAdap(ArrayList<String> arrayList){
-            this.arrayList = arrayList;
-        }
-        @Override
-        public int getCount() {
-            return arrayList.size();
-        }
+        listviewAlat.setAdapter(alatAdapter);
+        listviewBahan.setAdapter(bahanAdapter);
 
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> setAlat ,setBahan;
+                setAlat = (ArrayList<String>) dataSnapshot.child("listAlat").child(keyAlat).getValue();
+                setBahan = (ArrayList<String>) dataSnapshot.child("listBahan").child(keyBahan).getValue();
 
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
+                listAlat.clear();
+                listBahan.clear();
 
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.text_card,null);
-            TextView textView = view.findViewById(R.id.textAll);
-            textView.setText(arrayList.get(i));
-            return view;
-        }
+                listAlat.addAll(setAlat);
+                listBahan.addAll(setBahan);
+
+                alatAdapter.notifyDataSetChanged();
+                bahanAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

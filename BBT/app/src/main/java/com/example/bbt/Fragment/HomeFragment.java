@@ -38,16 +38,29 @@ public class HomeFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private Map<String, ArrayList<Produk>> map = new HashMap<>();
     private String[] tipe = {"Budidaya","Pengolahan","Proteksi","Penyuluhan","Sosial"};
     private String[] title = {"Budidaya Pertanian","Pengolahan Hasil","Proteksi Tanaman","Penyuluhan Pertanian","Sosial Ekonomi"};
-    private ProgressDialog progressDialog;
+    private boolean mod;
 
     public HomeFragment() {
-        for (String a : tipe){
-            map.put(a, new ArrayList<Produk>());
+    }
+
+    public static HomeFragment newInstance(boolean mod) {
+        HomeFragment fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putBoolean("mod",mod);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            this.mod = getArguments().getBoolean("mod");
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,45 +71,16 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading");
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference("Produk");
-        db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                fetchData(dataSnapshot);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         tabLayout = view.findViewById(R.id.tabHome);
         viewPager = view.findViewById(R.id.viewPager);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void fetchData(DataSnapshot dataSnapshot) {
-        for (int i = 0; i < tipe.length; i++){
-            map.get(tipe[i]).clear();
-            for (DataSnapshot ds : dataSnapshot.child(tipe[i]).getChildren()) {
-                Produk p = ds.getValue(Produk.class);
-                Log.d("cek lagi", String.valueOf(ds.getKey()));
-                if (p != null) {
-                    map.get(tipe[i]).add(p);
-                    Log.d("cek p listalat "+tipe[i], p.getListAlat());
-                }
-            }
-            Log.d("cek list size", String.valueOf(map.get(tipe[i]).size()));
-        }
-        progressDialog.dismiss();
-    }
-
     private void setupViewPager(ViewPager viewPager) {
         homeAdapter adapter = new homeAdapter(getChildFragmentManager());
         for (int i = 0; i < tipe.length; i++){
-            adapter.addFragment(ProdukFragment.newInstance(tipe[i],map.get(tipe[i])),title[i]);
+            adapter.addFragment(ProdukFragment.newInstance(tipe[i],mod),title[i]);
         }
         viewPager.setAdapter(adapter);
     }

@@ -1,23 +1,44 @@
 package com.example.bbt.Fragment;
 
-public class Produk {
+import java.io.Serializable;
+
+public class Produk implements Serializable {
     private String judul;
     private String listAlat;
     private String listBahan;
     private String listLangkah;
+    private String listLangkahImg;
     private String listInfo;
     private String image;
+    private String key;
 
     public Produk() {
     }
 
-    public Produk(String judul, String listAlat, String listBahan, String listLangkah, String listInfo, String image) {
+    public Produk(String judul, String listAlat, String listBahan, String listLangkah, String listLangkahImg, String listInfo, String image) {
         this.judul = judul;
         this.listAlat = listAlat;
         this.listBahan = listBahan;
         this.listLangkah = listLangkah;
+        this.listLangkahImg = listLangkahImg;
         this.listInfo = listInfo;
         this.image = image;
+    }
+
+    public String getListLangkahImg() {
+        return listLangkahImg;
+    }
+
+    public void setListLangkahImg(String listLangkahImg) {
+        this.listLangkahImg = listLangkahImg;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getJudul() {
