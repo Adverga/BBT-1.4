@@ -73,10 +73,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         Log.d(TAG, fromUserID + " ##### " + messageSenderID);
 
-        holder.receiverMessageText.setVisibility(View.INVISIBLE);
-        holder.messageProfileName.setVisibility(View.INVISIBLE);
-        holder.checklist.setVisibility(View.INVISIBLE);
-
         holder.receiverMessageText.setText("dummy");
         holder.senderMessageText.setText("dummy");
 
@@ -88,13 +84,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         if(fromUserID.equals(messageSenderID)){
 
+            holder.receiverMessageText.setVisibility(View.GONE);
+            holder.messageProfileName.setVisibility(View.GONE);
+            holder.checklist.setVisibility(View.GONE);
+
+
             int banyakhuruf = 0;
 
             /*if(fromMod.equals("true")){
                 //holder.senderMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
             }*/
-
-            holder.senderMessageText.setVisibility(View.VISIBLE);
 
             //holder.senderMessageText.setBackgroundResource(R.drawable.text_bubble_sender_smallest2);
             holder.senderMessageText.setText(messages.getMessage());
@@ -108,14 +107,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         }
         else{
             int banyakhuruf = 0;
-            holder.senderMessageText.setVisibility(View.INVISIBLE);
-            holder.messageProfileName.setVisibility(View.VISIBLE);
-            holder.receiverMessageText.setVisibility(View.VISIBLE);
+            holder.senderMessageText.setVisibility(View.GONE);
 
-            if(fromMod.equals("true")){
+            if(fromMod.equals("false")){
                 //holder.receiverMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
                 //holder.messageProfileName.setBackgroundResource(R.drawable.messages_layout_admin);
-                holder.checklist.setVisibility(View.VISIBLE);
+                holder.checklist.setVisibility(View.GONE);
             }
             /*else{
                 //holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
