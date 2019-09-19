@@ -9,8 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProduk"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp"/>
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/btnAdd"
@@ -24,5 +23,6 @@
         android:layout_marginBottom="32dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"/>
+
 
 </RelativeLayout>

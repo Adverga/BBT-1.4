@@ -1,7 +1,6 @@
 package com.example.bbt.Adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +21,15 @@ import com.example.bbt.R;
 
 import java.util.List;
 
+import io.isfaaghyth.rak.Rak;
+
 public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder> {
     private Context mContext;
     private List<Produk> produkList;
     private FragmentActivity activity;
     private String tipe;
 
-    public produkAdapter(FragmentActivity activity, Context mContext, final List<Produk> produkList, final String tipe) {
+    public produkAdapter(FragmentActivity activity, Context mContext, List<Produk> produkList, String tipe) {
         this.mContext = mContext;
         this.produkList = produkList;
         this.activity = activity;
@@ -40,30 +41,38 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.konten_card, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
+        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Produk produk = produkList.get(position);
         holder.textView.setText(produk.getJudul());
-        Log.d("cek judul",produk.getJudul());
 
-        if (produk.getImage() == null){
-        Glide.with(mContext).load(R.drawable.bbppok).into(holder.imageView);
-        }else Glide.with(mContext).load(produk.getImage()).into(holder.imageView);
+        Glide.with(mContext).load(produk.getImage()).into(holder.imageView);
 
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClick(int pos) {
+                openEdit(produkList.get(pos));
+            }
+        });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("cek click item","no "+position);
+                Rak.entry("listAlat",produk.getListAlat());
+                Rak.entry("listBahan", produk.getListBahan());
+                Rak.entry("listInfo", produk.getListInfo());
+                Rak.entry("listLangkah", produk.getListLangkah());
                 activity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fmContainer, ViewProdukFragment.newInstance(
-                                produk.getListAlat(),
-                                produk.getListBahan(),
-                                produk.getListLangkah(),
-                                produk.getListInfo()
-                        )).commit();
+                        .replace(R.id.fmContainer, new ViewProdukFragment())
+                        .commit();
             }
         });
     }
@@ -87,7 +96,6 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
             super(itemView);
             textView = itemView.findViewById(R.id.kText);
             imageView = itemView.findViewById(R.id.kImage);
-            cardView = itemView.findViewById(R.id.kCardView);
 
             itemView.setOnClickListener(this);
         }
