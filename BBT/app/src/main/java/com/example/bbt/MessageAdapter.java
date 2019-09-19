@@ -1,17 +1,14 @@
 package com.example.bbt;
 
-import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +34,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public class MessageViewHolder extends RecyclerView.ViewHolder{
 
         public TextView senderMessageText, receiverMessageText, messageProfileName;
-        public ImageView checklist;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -45,8 +41,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             senderMessageText = (TextView) itemView.findViewById(R.id.sender_message_text);
             receiverMessageText = (TextView) itemView.findViewById(R.id.receiver_message_text);
             messageProfileName = (TextView) itemView.findViewById(R.id.message_profile_name);
-            checklist = (ImageView) itemView.findViewById(R.id.checklist);
-
         }
     }
 
@@ -73,6 +67,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         Log.d(TAG, fromUserID + " ##### " + messageSenderID);
 
+<<<<<<< HEAD
         holder.receiverMessageText.setText("dummy");
         holder.senderMessageText.setText("dummy");
 
@@ -91,47 +86,54 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             int banyakhuruf = 0;
 
+=======
+        holder.receiverMessageText.setVisibility(View.INVISIBLE);
+        holder.messageProfileName.setVisibility(View.INVISIBLE);
+
+        if(fromUserID.equals(messageSenderID)){
+
+>>>>>>> parent of 062d1a3... tentang kami, bantuan, contact us, dan modifikasi chatroom
             /*if(fromMod.equals("true")){
-                //holder.senderMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
+                holder.senderMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
+            }
+            else{
+                holder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
             }*/
 
+<<<<<<< HEAD
             //holder.senderMessageText.setBackgroundResource(R.drawable.text_bubble_sender_smallest2);
+=======
+            holder.senderMessageText.setVisibility(View.VISIBLE);
+            holder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
+>>>>>>> parent of 062d1a3... tentang kami, bantuan, contact us, dan modifikasi chatroom
             holder.senderMessageText.setText(messages.getMessage());
-
-            banyakhuruf = holder.senderMessageText.getText().toString().length();
-
-            if(banyakhuruf>37){
-                holder.senderMessageText.getLayoutParams().width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
-                holder.senderMessageText.requestLayout();
-            }
         }
         else{
+<<<<<<< HEAD
             int banyakhuruf = 0;
             holder.senderMessageText.setVisibility(View.GONE);
+=======
+            holder.senderMessageText.setVisibility(View.INVISIBLE);
+            holder.messageProfileName.setVisibility(View.VISIBLE);
+            holder.receiverMessageText.setVisibility(View.VISIBLE);
+>>>>>>> parent of 062d1a3... tentang kami, bantuan, contact us, dan modifikasi chatroom
 
             if(fromMod.equals("false")){
                 //holder.receiverMessageText.setBackgroundResource(R.drawable.messages_layout_admin);
                 //holder.messageProfileName.setBackgroundResource(R.drawable.messages_layout_admin);
+<<<<<<< HEAD
                 holder.checklist.setVisibility(View.GONE);
+=======
+>>>>>>> parent of 062d1a3... tentang kami, bantuan, contact us, dan modifikasi chatroom
             }
-            /*else{
+            else{
                 //holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
                 //holder.messageProfileName.setBackgroundResource(R.drawable.messages_layout_user);
-            }*/
+            }
 
-            //holder.receiverMessageText.setBackgroundResource(R.drawable.text_bubble_receiver_smallest2);
+            holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
             holder.receiverMessageText.setText(messages.getMessage());
             holder.messageProfileName.setText(messages.getNama());
-
-            /*if(holder.receiverMessageText.toString().length()>37){
-                holder.receiverMessageText.setWidth(0);
-            }*/
-            banyakhuruf = holder.receiverMessageText.getText().toString().length();
-
-            if(banyakhuruf>37){
-                holder.receiverMessageText.getLayoutParams().width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT;
-                holder.receiverMessageText.requestLayout();
-            }
         }
     }
 
