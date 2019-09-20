@@ -1,17 +1,8 @@
 package com.example.bbt.FirebaseHelper;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.example.bbt.Fragment.Produk;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -39,7 +30,7 @@ public class ProdukHelper {
                 db.child("listLangkah").child(sListKey).setValue(listLangkah);
                 produk.setListLangkah(sListKey);
                 sListKey = db.child("listLangkahImg").push().getKey();
-                db.child("listLangkahImg").child(sListKey).setValue(listLangkah);
+                db.child("listLangkahImg").child(sListKey).setValue(listLangkahImg);
                 produk.setListLangkahImg(sListKey);
                 sListKey = db.child("listInfo").push().getKey();
                 db.child("listInfo").child(sListKey).setValue(listInfo);
