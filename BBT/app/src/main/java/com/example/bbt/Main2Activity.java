@@ -50,7 +50,7 @@ public class Main2Activity extends AppCompatActivity {
         name = getIntent().getExtras().get("user_name").toString();
         mod = getIntent().getExtras().get("mod").toString();
 
-        add_room = (Button)findViewById(R.id.btnAdd_room);
+        add_room = (Button)findViewById(R.id.btnAdd_room3);
         room_name = (EditText)findViewById(R.id.etNeme_room);
         listView = (ListView)findViewById(R.id.listView);
 

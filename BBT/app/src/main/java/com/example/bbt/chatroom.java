@@ -26,7 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -51,6 +53,8 @@ public class chatroom extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private RecyclerView userMessagesList;
 
+    private String saveCurrentTime, saveCurrentDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,14 @@ public class chatroom extends AppCompatActivity {
         room_name = getIntent().getExtras().get("room_name").toString();
         mod = getIntent().getExtras().get("mod").toString();
         setTitle(room_name);
+
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        saveCurrentTime = currentTime.format(calendar.getTime());
 
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
@@ -98,6 +110,8 @@ public class chatroom extends AppCompatActivity {
                     map2.put("msg",input_msg.getText().toString());
                     map2.put("NameID",messageSenderID);
                     map2.put("mod",mod);
+                    map2.put("time",saveCurrentTime);
+                    map2.put("date",saveCurrentDate);
 
                     message_root.updateChildren(map2);
                     input_msg.setText(null);
@@ -184,9 +198,11 @@ public class chatroom extends AppCompatActivity {
         while (i.hasNext())
         {
             messages.setId((String) ((DataSnapshot)i.next()).getValue());
+            messages.setDate((String)((DataSnapshot)i.next()).getValue());
             messages.setMod((String) ((DataSnapshot)i.next()).getValue());
             messages.setMessage((String) ((DataSnapshot)i.next()).getValue());
             messages.setNama((String) ((DataSnapshot)i.next()).getValue());
+            messages.setTime((String) ((DataSnapshot)i.next()).getValue());
 
             Log.d(TAG, "Iki lho: "+messages.getId());
 

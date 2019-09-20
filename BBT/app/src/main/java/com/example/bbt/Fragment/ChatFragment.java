@@ -27,8 +27,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -62,21 +64,37 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.activity_main2, container, false);
+        return inflater.inflate(R.layout.activity_main3, container, false);
 
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        //add_room = (Button)getView().findViewById(R.id.btnAdd_room);
-        room_name = (EditText)getView().findViewById(R.id.etNeme_room);
-        listView = (ListView)getView().findViewById(R.id.listView);
+        add_room = (Button)getView().findViewById(R.id.btnAdd_room3);
+        room_name = (EditText)getView().findViewById(R.id.etNeme_room3);
+        listView = (ListView)getView().findViewById(R.id.listView3);
+
+        if(mod == "false"){
+            add_room.setVisibility(View.GONE);
+            room_name.setVisibility(View.GONE);
+        }
 
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list_of_rooms);
         listView.setAdapter(arrayAdapter);
 
         //request_user_name();
+        add_room.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Map<String,Object> map = new HashMap<String,Object>();
+                map.put(room_name.getText().toString(),"");
+                root.updateChildren(map);
+                room_name.setText(null);
+
+            }
+        });
 
         root.addValueEventListener(new ValueEventListener() {
             @Override

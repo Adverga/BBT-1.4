@@ -1,10 +1,8 @@
 package com.example.bbt.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -15,8 +13,6 @@ import com.example.bbt.Fragment.fm_alatbahan;
 import com.example.bbt.Fragment.fm_info;
 import com.example.bbt.Fragment.fm_langkah;
 import com.example.bbt.R;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 
 public class ViewProduk extends AppCompatActivity {
@@ -76,7 +72,7 @@ public class ViewProduk extends AppCompatActivity {
     private void setupAdapter() {
         ViewProdukAdapter adapter = new ViewProdukAdapter(getSupportFragmentManager());
         adapter.addFragment(fm_alatbahan.newInstance(produk.getListAlat(),produk.getListBahan()), "Alat & Bahan");
-        adapter.addFragment(fm_langkah.newInstance(produk.getListLangkah()), "Langkah");
+        adapter.addFragment(fm_langkah.newInstance(produk.getListLangkah(), produk.getListLangkahImg()), "Langkah");
         adapter.addFragment(fm_info.newInstance(produk.getListInfo()),"Informasi Tambahan");
         viewPager.setAdapter(adapter);
     }

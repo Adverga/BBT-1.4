@@ -85,6 +85,14 @@ public class Main4Activity extends AppCompatActivity {
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
                 return true;
+            case R.id.bantuan:
+                Intent intent = new Intent(Main4Activity.this, bantuan.class);
+                startActivity(intent);
+                return true;
+            case R.id.tentangKami:
+                Intent intent1 = new Intent(Main4Activity.this, about_us.class);
+                startActivity(intent1);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

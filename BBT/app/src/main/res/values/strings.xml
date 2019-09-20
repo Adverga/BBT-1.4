@@ -9,6 +9,29 @@
     <string name="menuHome">Home</string>
     <string name="menuContact">Contact</string>
     <string name="menuChat">Chat</string>
+    <string name="faq">Frequently Asked Questions</string>
+<string name="faq1">1. Bagaimana Cara Registrasi Akun Teman Tani Pintar?</string>
+<string name="ans1">Masukkan email yang sebelumnya belum pernah digunakan, username, dan password</string>
+<string name="faq2">2. Bagaimana Jika Saya Lupa Password Akun Teman Tani Pintar Saya?</string>
+<string name="ans2">Untuk saat ini belum ada fitur lupa password, silahkan membuat akun baru</string>
+<string name="faq3">3. Apakah Saya Dapat Menggunakan Email Yang Sama Untuk Lebih Dari Satu Akun?
+</string>
+<string name="ans3">Tidak, satu email hanya dapat untuk satu akun</string>
+<string name="faq4">4. Bagaimana Saya Dapat mengetahui Harga dari Produk Jika Saya Ingin Beli?
+</string>
+<string name="ans4">Dapat langsung menghubungi kontak LMK atau melalui social media kami</string>
+<string name="faq5">5. Apakah Yang Harus Saya Lakukan Jika Saya Menemukan Bug Di Aplikasi Teman Tani Pintar?</string>
+<string name="ans5">Jika anda menemukan bug/error yang terjadi di aplikasi Teman Tani Pintar, anda dapat melaporkannya kepada kami melalui email bbppketindanlawang123@gmail.com atau melaporkan melalui social media kami</string>
+<string name="version">v1.0.1</string>
+<string name="by">By :</string>
+<string name="mahasiswa">Mahasiswa PKL FILKOM UB</string>
+<string name="link">http://bbppketindan.bppsdmp.pertanian.go.id</string>
+<string name="facebook">BBPP Ketindan Malang</string>
+<string name="youtube">BBPPKetindan Lawang</string>
+<string name="twitter">BBPP Ketindan</string>
+<string name="instagram">ketindanbbpp</string>
+<string name="lanbouw">Lanbouw Mart Ketindan</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
