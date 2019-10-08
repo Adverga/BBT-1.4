@@ -25,12 +25,12 @@
 <string name="version">v1.0.1</string>
 <string name="by">By :</string>
 <string name="mahasiswa">Mahasiswa PKL FILKOM UB</string>
-<string name="link">http://bbppketindan.bppsdmp.pertanian.go.id</string>
-<string name="facebook">BBPP Ketindan Malang</string>
-<string name="youtube">BBPPKetindan Lawang</string>
-<string name="twitter">BBPP Ketindan</string>
-<string name="instagram">ketindanbbpp</string>
-<string name="lanbouw">Lanbouw Mart Ketindan</string>
+<string name="link"><u>http://bbppketindan.bppsdmp.pertanian.go.id</u></string>
+<string name="facebook"><u>BBPP Ketindan Malang</u></string>
+<string name="youtube"><u>BBPPKetindan Lawang</u></string>
+<string name="twitter"><u>BBPP Ketindan</u></string>
+<string name="instagram"><u>ketindanbbpp</u></string>
+<string name="lanbouw"><u>Lanbouw Mart Ketindan</u></string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
