@@ -1,4 +1,4 @@
-package com.example.bbt;
+package com.example.bbt.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -21,6 +21,7 @@ import com.example.bbt.Adapter.abAdapter;
 import com.example.bbt.Fragment.AddFragment1;
 import com.example.bbt.Fragment.AddFragment2;
 import com.example.bbt.Fragment.Produk;
+import com.example.bbt.R;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,6 @@ public class AddActivity extends AppCompatActivity {
         //init
         idTipe = findViewById(R.id.idTipe);
         fmContainerAdd = findViewById(R.id.fmContainerAdd);
-        progressBar = findViewById(R.id.progressBarA);
 
         //setTipe
         tipe = getIntent().getExtras().getString("tipe");

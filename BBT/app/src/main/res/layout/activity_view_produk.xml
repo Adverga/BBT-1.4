@@ -6,32 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Activity.ViewProduk">
 
-    <TextView
-        android:id="@+id/btnEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginEnd="268dp"
-        android:layout_toStartOf="@+id/btnDelete"
-        android:background="@drawable/btn_p"
-        android:padding="8dp"
-        android:text="@string/edit"
-        android:textSize="20sp" />
-    <TextView
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_p"
-        android:text="@string/delete"
-        android:textSize="20sp"
-        android:padding="8dp"
-        android:layout_alignParentEnd="true"/>
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabViewProduk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed"
-        android:layout_below="@+id/btnEdit"/>
+        app:tabMode="fixed" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pagerViewProduk"

@@ -46,6 +46,30 @@ public class ProdukHelper {
         }
         return saved;
     }
+    public boolean update(Produk produk, ArrayList<String> listAlat, ArrayList<String> listBahan, ArrayList<String> listLangkah, ArrayList<String> listLangkahImg, ArrayList<String> listInfo){
+        if (produk == null){
+            saved = false;
+        }else {
+            try {
+                String keyAlat = produk.getListAlat();
+                String keyBahan = produk.getListBahan();
+                String keyLangkah = produk.getListLangkah();
+                String keyLangkahImg = produk.getListLangkahImg();
+                String keyInfo = produk.getListInfo();
+                db.child("listAlat").child(keyAlat).setValue(listAlat);
+                db.child("listBahan").child(keyBahan).setValue(listBahan);
+                db.child("listLangkah").child(keyLangkah).setValue(listLangkah);
+                db.child("listLangkahImg").child(keyLangkahImg).setValue(listLangkahImg);
+                db.child("listInfo").child(keyInfo).setValue(listInfo);
+                db.child(tipe).child(produk.getKey()).setValue(produk);
+                saved = true;
+            }catch (DatabaseException e){
+                e.printStackTrace();
+                saved = false;
+            }
+        }
+        return saved;
+    }
     public ArrayList<Produk> retrieve(){
         return produkList;
     }

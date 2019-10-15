@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AddActivity">
+    tools:context=".Activity.ViewEdit">
 
     <TextView
-        android:id="@+id/idTipe"
+        android:id="@+id/idTipee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Konten :"
@@ -15,19 +15,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:id="@+id/fmContainerAdd"
+        android:id="@+id/fmContainerAdde"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idTipe">
-        <!--<fragment-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/fragmentadd1"-->
-        <!--android:name="com.example.bbt.Fragment.AddFragment1"-->
-        <!--tools:layout="@layout/fragment_add1" />-->
+        app:layout_constraintTop_toBottomOf="@+id/idTipee">
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

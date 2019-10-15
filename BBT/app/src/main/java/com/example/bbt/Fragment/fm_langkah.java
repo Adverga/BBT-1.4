@@ -32,7 +32,7 @@ public class fm_langkah extends Fragment {
 
 
     private ArrayList<String> listLangkah = new ArrayList<>();
-    private ListView listviewLangkah;
+    //private ListView listviewLangkah;
     private ArrayAdapter langkahAdapter;
     private RecyclerView rvItemLangkah;
     private DatabaseReference db = FirebaseDatabase.getInstance().getReference("Produk");
@@ -72,32 +72,32 @@ public class fm_langkah extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listviewLangkah = view.findViewById(R.id.listviewLangkah);
-//        rvItemLangkah = view.findViewById(R.id.rvlistviewLangkah);
+        //listviewLangkah = view.findViewById(R.id.listviewLangkah);
+        rvItemLangkah = view.findViewById(R.id.rvlistviewLangkah);
 
-        langkahAdapter = new ArrayAdapter<String>(getActivity(), R.layout.text_card, listLangkah);
-        listviewLangkah.setAdapter(langkahAdapter);
+//        langkahAdapter = new ArrayAdapter<String>(getActivity(), R.layout.text_card, listLangkah);
+//        listviewLangkah.setAdapter(langkahAdapter);
 
-//        rvItemLangkah.setLayoutManager(new LinearLayoutManager(getContext()));
-//        viewLangkahAdapter = new ViewLangkahAdapter(getContext(), listLangkahImg, listLangkah);
-//        rvItemLangkah.setAdapter(viewLangkahAdapter);
+        rvItemLangkah.setLayoutManager(new LinearLayoutManager(getContext()));
+        viewLangkahAdapter = new ViewLangkahAdapter(getContext(), listLangkahImg, listLangkah);
+        rvItemLangkah.setAdapter(viewLangkahAdapter);
 
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> setLangkah;
                 setLangkah = (ArrayList<String>) dataSnapshot.child("listLangkah").child(keyLangkah).getValue();
-//                ArrayList<String> setLangkahImg;
-//                setLangkahImg = (ArrayList<String>) dataSnapshot.child("listLangkahImg").child(keyLangkahImg).getValue();
+                ArrayList<String> setLangkahImg;
+                setLangkahImg = (ArrayList<String>) dataSnapshot.child("listLangkahImg").child(keyLangkahImg).getValue();
 
                 listLangkah.clear();
-//                listLangkahImg.clear();
+                listLangkahImg.clear();
 
                 listLangkah.addAll(setLangkah);
-//                listLangkahImg.addAll(setLangkahImg);
+                listLangkahImg.addAll(setLangkahImg);
 
-                langkahAdapter.notifyDataSetChanged();
-//                viewLangkahAdapter.notifyDataSetChanged();
+//                langkahAdapter.notifyDataSetChanged();
+                viewLangkahAdapter.notifyDataSetChanged();
             }
 
             @Override

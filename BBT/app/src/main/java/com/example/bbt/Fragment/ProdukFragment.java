@@ -9,16 +9,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bbt.Activity.ViewEdit;
 import com.example.bbt.Activity.ViewProduk;
 import com.example.bbt.Adapter.produkAdapter;
-import com.example.bbt.AddActivity;
+import com.example.bbt.Activity.AddActivity;
 import com.example.bbt.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -93,6 +93,7 @@ public class ProdukFragment extends Fragment {
                 intent.putExtra("alat", produkList.get(pos).getListAlat());
                 intent.putExtra("bahan",produkList.get(pos).getListBahan());
                 intent.putExtra("langkah",produkList.get(pos).getListLangkah());
+                intent.putExtra("langkahimg", produkList.get(pos).getListLangkahImg());
                 intent.putExtra("info", produkList.get(pos).getListInfo());
                 intent.putExtra("mod",mod);
                 startActivity(intent);
@@ -109,6 +110,14 @@ public class ProdukFragment extends Fragment {
                     });
                 }
             }
+
+            @Override
+            public void onEditData(Produk produk, int pos) {
+                Intent i = new Intent(getActivity(), ViewEdit.class);
+                i.putExtra("tipe", tipe);
+                i.putExtra("produk", produkList.get(pos));
+                startActivity(i);
+            }
         });
         rvProduk.setAdapter(adapter);
 
@@ -118,9 +127,6 @@ public class ProdukFragment extends Fragment {
                 Intent i = new Intent(getActivity(), AddActivity.class);
                 i.putExtra("tipe", tipe);
                 startActivity(i);
-//                getActivity().getSupportFrargmentManager().beginTransaction()
-//                        .replace(R.id.fmContainer, new AddFragment2(tipe, null))
-//                        .commit();
             }
         });
         db.addValueEventListener(new ValueEventListener() {
