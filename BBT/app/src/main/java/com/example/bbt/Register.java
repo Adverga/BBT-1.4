@@ -68,8 +68,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         User user = new User(firebaseAuth.getCurrentUser().getUid(), username, email);
                         databaseReference.child("Admin").child("User").child(firebaseAuth.getCurrentUser().getUid()).setValue(user);
                         Toast.makeText(Register.this,"User Created", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Register.this, Decide.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(Register.this, Decide.class);
+                        //startActivity(intent);
                         finish();
                         //progressDialog.dismiss();
                     } else {

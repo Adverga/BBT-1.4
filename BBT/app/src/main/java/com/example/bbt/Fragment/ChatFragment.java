@@ -6,7 +6,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bbt.R;
 import com.example.bbt.chatroom;
@@ -75,6 +78,12 @@ public class ChatFragment extends Fragment {
         room_name = (EditText)getView().findViewById(R.id.etNeme_room3);
         listView = (ListView)getView().findViewById(R.id.listView3);
 
+        if(mod== "true"){
+
+            registerForContextMenu(listView);
+
+        }
+
         if(mod == "false"){
             add_room.setVisibility(View.GONE);
             room_name.setVisibility(View.GONE);
@@ -134,6 +143,31 @@ public class ChatFragment extends Fragment {
                 startActivity(I);
             }
         });
+
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        if(v.getId()==R.id.listView3){
+            getActivity().getMenuInflater().inflate(R.menu.chatroom_floating_context_menu, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch(item.getItemId()){
+            case R.id.remove_option:
+                root.child(((TextView)info.targetView).getText().toString()).removeValue();
+                Toast.makeText(getActivity(), "Removed "+((TextView)info.targetView).getText().toString(), Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
 
     }
 }
