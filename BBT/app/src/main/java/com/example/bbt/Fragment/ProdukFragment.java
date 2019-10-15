@@ -83,6 +83,7 @@ public class ProdukFragment extends Fragment {
             btnAdd.setVisibility(View.GONE);
         }
         rvProduk.setLayoutManager(new LinearLayoutManager(getContext()));
+
         adapter = new produkAdapter(getContext(), produkList, tipe, mod, new ItemClickListener() {
             @Override
             public void onItemClick(Produk produk, int pos) {
