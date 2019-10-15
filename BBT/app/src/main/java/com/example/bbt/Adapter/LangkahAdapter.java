@@ -43,9 +43,9 @@ public class LangkahAdapter extends RecyclerView.Adapter<LangkahAdapter.aViewHol
 
     @Override
     public void onBindViewHolder(@NonNull aViewHolder holder, final int position) {
-//        if (mData1!=null)
-//            Glide.with(context).load(mData1.get(position)).into(holder.mImageView);
-//        else
+        if (mData1!=null)
+            Glide.with(context).load(mData1.get(position)).into(holder.mImageView);
+        else
         Glide.with(context).load(mData11.get(position)).into(holder.mImageView);
         holder.mEditText.setText(mData2.get(position));
         holder.mBtnMin.setOnClickListener(new View.OnClickListener() {

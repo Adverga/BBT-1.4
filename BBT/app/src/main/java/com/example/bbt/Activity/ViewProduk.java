@@ -19,7 +19,6 @@ public class ViewProduk extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TextView btnEdit, btnDelete;
     private Produk produk;
     private boolean mod;
 
@@ -30,8 +29,6 @@ public class ViewProduk extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabViewProduk);
         viewPager = findViewById(R.id.pagerViewProduk);
-        btnEdit = findViewById(R.id.btnEdit);
-        btnDelete = findViewById(R.id.btnDelete);
 
         if (getIntent().getExtras()==null){
             produk = new Produk();
@@ -42,29 +39,10 @@ public class ViewProduk extends AppCompatActivity {
             produk.setListAlat(getIntent().getStringExtra("alat"));
             produk.setListBahan(getIntent().getStringExtra("bahan"));
             produk.setListLangkah(getIntent().getStringExtra("langkah"));
+            produk.setListLangkahImg(getIntent().getStringExtra("langkahimg"));
             produk.setListInfo(getIntent().getStringExtra("info"));
             mod = getIntent().getExtras().getBoolean("mod");
         }
-        if (mod){
-            btnDelete.setVisibility(View.VISIBLE);
-            btnEdit.setVisibility(View.VISIBLE);
-        }else {
-            btnEdit.setVisibility(View.GONE);
-            btnDelete.setVisibility(View.GONE);
-        }
-
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         setupAdapter();
         tabLayout.setupWithViewPager(viewPager);

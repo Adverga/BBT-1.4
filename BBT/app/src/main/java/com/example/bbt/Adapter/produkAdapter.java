@@ -103,9 +103,7 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
                                     @Override
                                     public void onClick(View view) {
                                         dialog.dismiss();
-//                                        Intent i = new Intent();
-//                                        mContext.startActivity();
-//                                        mContext.startActivity(FirebaseDBCreateActivity.getActIntent((Activity) context).putExtra("data", daftarBarang.get(position)));
+                                        listener.onEditData(produkList.get(position), position);
                                     }
                                 }
                         );
@@ -142,9 +140,8 @@ public class produkAdapter extends RecyclerView.Adapter<produkAdapter.ViewHolder
                                     @Override
                                     public void onClick(View view) {
                                         dialog.dismiss();
-//                                        Intent i = new Intent();
-//                                        mContext.startActivity();
-//                                        mContext.startActivity(FirebaseDBCreateActivity.getActIntent((Activity) context).putExtra("data", daftarBarang.get(position)));
+                                        Intent i = new Intent();
+                                        listener.onEditData(produkList.get(position), position);
                                     }
                                 }
                         );

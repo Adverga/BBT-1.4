@@ -12,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddActivity"></activity>
-        <activity android:name=".about_us"></activity>
+        <activity android:name=".Activity.ViewEdit"></activity>
+        <activity android:name=".Activity.AddActivity" />
+        <activity android:name=".about_us" />
         <activity android:name=".bantuan" />
         <activity android:name=".Activity.ViewProduk" />
         <activity android:name=".Main4Activity" />
